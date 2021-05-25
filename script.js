@@ -32,5 +32,18 @@ function elementBuilder(element, classLabel, parentName) {
 /* Calc Visuals */
 
 const body = document.querySelector('body');
-
 const calcDiv = elementBuilder('div', 'calc-div', body);
+
+const numArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
+
+function numButtonBuilder(numberArray) {
+    for (i = 0; i <= numArray.length-1; i++) {
+        let newButton = elementBuilder('button', 'number-button', calcDiv);
+        newButton.setAttribute('id', `${numberArray[i]}`);
+        newButton.textContent = `${numberArray[i]}`;
+    };
+
+};
+
+numButtonBuilder(numArray);
+
