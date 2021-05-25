@@ -50,7 +50,23 @@ function numButtonBuilder() {
     };
 };
 
+const calcArray = ['+', '-', 'x', '/', '^'];
+
+function calcButtonBuilder(newCalcArray) {
+    for (i = 0; i < newCalcArray.length; i++) {
+        let newButton = elementBuilder('button', 'calc-button', buttonDiv);
+        newButton.setAttribute('id', `${newCalcArray[i]}`);
+        newButton.textContent = `${newCalcArray[i]}`;
+        newButton.addEventListener('click', () => {
+            let calc = parseInt(newButton.id);
+            calcDisplay.textContent = newButton.id;
+            return calc;
+        });
+    };
+};
+
 let num = numButtonBuilder();
+calcButtonBuilder(calcArray);
 
 /*
 function numConcat(numString1, numString2) {
