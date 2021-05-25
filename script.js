@@ -33,17 +33,29 @@ function elementBuilder(element, classLabel, parentName) {
 
 const body = document.querySelector('body');
 const calcDiv = elementBuilder('div', 'calc-div', body);
+const calcDisplay = elementBuilder('div', 'calc-display', calcDiv)
+calcDisplay.textContent = "";
 
-const numArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
-
-function numButtonBuilder(numberArray) {
-    for (i = 0; i <= numArray.length-1; i++) {
+function numButtonBuilder() {
+    for (i = 0; i < 10; i++) {
         let newButton = elementBuilder('button', 'number-button', calcDiv);
-        newButton.setAttribute('id', `${numberArray[i]}`);
-        newButton.textContent = `${numberArray[i]}`;
+        newButton.setAttribute('id', `${i}`);
+        newButton.textContent = `${i}`;
+        newButton.addEventListener('click', () => {
+            let num = parseInt(newButton.id);
+            calcDisplay.textContent = newButton.id;
+            return num;
+        })
     };
-
 };
 
-numButtonBuilder(numArray);
+let num = numButtonBuilder();
 
+/*
+function numConcat(numString1, numString2) {
+    let newNum = numString1 + numString2;
+    newNum = parseInt(newNum);
+    calcDisplay.textContent = newNum;
+    return ;
+}
+*/
