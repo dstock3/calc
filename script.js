@@ -33,12 +33,13 @@ function elementBuilder(element, classLabel, parentName) {
 
 const body = document.querySelector('body');
 const calcDiv = elementBuilder('div', 'calc-div', body);
-const calcDisplay = elementBuilder('div', 'calc-display', calcDiv)
+const calcDisplay = elementBuilder('div', 'calc-display', calcDiv);
+const buttonDiv = elementBuilder('div', 'button-div', calcDiv);
 calcDisplay.textContent = "";
 
 function numButtonBuilder() {
     for (i = 0; i < 10; i++) {
-        let newButton = elementBuilder('button', 'number-button', calcDiv);
+        let newButton = elementBuilder('button', 'number-button', buttonDiv);
         newButton.setAttribute('id', `${i}`);
         newButton.textContent = `${i}`;
         newButton.addEventListener('click', () => {
