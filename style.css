@@ -1,5 +1,6 @@
 .calc-div {
     border: 2px solid black;
+    padding: 1%;
     border-radius: 10px;
     width: 250px;
     height: 500px;
@@ -7,6 +8,7 @@
 
 .calc-display {
     position: relative;
+    height: 25px;
     top: 10px;
     border: 1px solid black;
     padding: 10px;
