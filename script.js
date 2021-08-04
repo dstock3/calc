@@ -68,11 +68,10 @@ function calcButtonBuilder(newCalcArray) {
 let num = numButtonBuilder();
 calcButtonBuilder(calcArray);
 
-/*
+
 function numConcat(numString1, numString2) {
-    let newNum = numString1 + numString2;
+    let newNum = parseInt(numString1) + parseInt(numString2);
     newNum = parseInt(newNum);
     calcDisplay.textContent = newNum;
     return ;
 }
-*/
