@@ -38,6 +38,7 @@ const buttonDiv = elementBuilder('div', 'button-div', calcDiv);
 calcDisplay.textContent = "";
 
 function numButtonBuilder() {
+    let numElementArray = []
     for (i = 0; i < 10; i++) {
         let newButton = elementBuilder('button', 'number-button', buttonDiv);
         newButton.setAttribute('id', `${i}`);
@@ -47,7 +48,11 @@ function numButtonBuilder() {
             calcDisplay.textContent = newButton.id;
             return num;
         })
+
+        numElementArray.push(newButton);
     };
+
+    return numElementArray
 };
 
 const calcArray = ['+', '-', 'x', '/', '^', `=`];
@@ -69,6 +74,7 @@ function calcButtonBuilder(newCalcArray) {
 };
 
 let num = numButtonBuilder();
+console.log(num)
 let calc = calcButtonBuilder(calcArray);
 console.log(calc)
 
