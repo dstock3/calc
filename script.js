@@ -53,6 +53,7 @@ function numButtonBuilder() {
 const calcArray = ['+', '-', 'x', '/', '^', `=`];
 
 function calcButtonBuilder(newCalcArray) {
+    let calcElementArray = [];
     for (i = 0; i < newCalcArray.length; i++) {
         let newButton = elementBuilder('button', 'calc-button', buttonDiv);
         newButton.setAttribute('id', `${newCalcArray[i]}`);
@@ -60,13 +61,16 @@ function calcButtonBuilder(newCalcArray) {
         newButton.addEventListener('click', () => {
             let calc = parseInt(newButton.id);
             calcDisplay.textContent = newButton.id;
-            return calc;
         });
+
+        calcElementArray.push(newButton);
     };
+    return calcElementArray
 };
 
 let num = numButtonBuilder();
 let calc = calcButtonBuilder(calcArray);
+console.log(calc)
 
 function numConcat(numString1, numString2) {
     let newNum = parseInt(numString1) + parseInt(numString2);
