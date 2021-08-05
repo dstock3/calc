@@ -1,24 +1,13 @@
 /* Calculation functions */
 
-function multiply(x, y) {
-    return x * y;
-}
-
-function add(x, y) {
-    return x + y;
-}
-
-function subtract(x, y) {
-    return x - y;
-}
-
-function divide(x, y) {
-    return x / y;
-}
-
-function exponent(x, y) {
-    return x ** y;
-}
+const calc = (() => {
+    const add = (x, y) => x + y;
+    const mult = (x, y) => x * y;
+    const sub = (x, y) => x - y;
+    const div = (x, y) => x / y;
+    const exp = (x, y) => x ** y;
+    return { add, mult, sub, div, exp }
+})();
 
 /* DOM manipulation */
 
@@ -37,7 +26,10 @@ const calcDisplay = elementBuilder('div', 'calc-display', calcDiv);
 const buttonDiv = elementBuilder('div', 'button-div', calcDiv);
 calcDisplay.textContent = "";
 
-function numButtonBuilder() {
+const calcArray = ['+', '-', 'x', '/', '^', `=`];
+
+const numButtonBuilder = (() => {
+    let numElementArray = []
     for (i = 0; i < 10; i++) {
         let newButton = elementBuilder('button', 'number-button', buttonDiv);
         newButton.setAttribute('id', `${i}`);
@@ -47,12 +39,14 @@ function numButtonBuilder() {
             calcDisplay.textContent = newButton.id;
             return num;
         })
+    
+        numElementArray.push(newButton);
     };
-};
+    
+    return numElementArray
+})();
 
-const calcArray = ['+', '-', 'x', '/', '^', `=`];
-
-function calcButtonBuilder(newCalcArray) {
+const calcButtonBuilder = (newCalcArray) => {
     let calcElementArray = [];
     for (i = 0; i < newCalcArray.length; i++) {
         let newButton = elementBuilder('button', 'calc-button', buttonDiv);
@@ -62,19 +56,10 @@ function calcButtonBuilder(newCalcArray) {
             let calc = parseInt(newButton.id);
             calcDisplay.textContent = newButton.id;
         });
-
+    
         calcElementArray.push(newButton);
     };
     return calcElementArray
 };
 
-let num = numButtonBuilder();
-let calc = calcButtonBuilder(calcArray);
-console.log(calc)
-
-function numConcat(numString1, numString2) {
-    let newNum = parseInt(numString1) + parseInt(numString2);
-    newNum = parseInt(newNum);
-    calcDisplay.textContent = newNum;
-    return newNum;
-};
+let calcButtons = calcButtonBuilder(calcArray);
