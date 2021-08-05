@@ -1,24 +1,13 @@
 /* Calculation functions */
 
-function multiply(x, y) {
-    return x * y;
-}
-
-function add(x, y) {
-    return x + y;
-}
-
-function subtract(x, y) {
-    return x - y;
-}
-
-function divide(x, y) {
-    return x / y;
-}
-
-function exponent(x, y) {
-    return x ** y;
-}
+const calc = (() => {
+    const add = (x, y) => x + y;
+    const mult = (x, y) => x * y;
+    const sub = (x, y) => x - y;
+    const div = (x, y) => x / y;
+    const exp = (x, y) => x ** y;
+    return { add, mult, sub, div, exp }
+})();
 
 /* DOM manipulation */
 
@@ -38,7 +27,6 @@ const buttonDiv = elementBuilder('div', 'button-div', calcDiv);
 calcDisplay.textContent = "";
 
 const calcArray = ['+', '-', 'x', '/', '^', `=`];
-
 
 const numButtonBuilder = (() => {
     let numElementArray = []
@@ -74,7 +62,4 @@ const calcButtonBuilder = (newCalcArray) => {
     return calcElementArray
 };
 
-
-
-let num = calcControl.numButtonBuilder();
-let calc = calcButtonBuilder(calcArray);
+let calcButtons = calcButtonBuilder(calcArray);
