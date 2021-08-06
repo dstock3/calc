@@ -59,24 +59,37 @@ const calcButtonBuilder = (newCalcArray) => {
 let calcButtons = calcButtonBuilder(calcArray);
 
 const calcFlow = (numButtonArray, displayElement) => {
-    let display = [];
-    for (i = 0; i < numButtonArray.length; i++) {
-        let newButton = numButtonArray[i];
-        newButton.addEventListener('click', () => {
-            let num = parseInt(newButton.id);
-            display.push(num);
-        })
-    };
 
-    let newNumber = 0;
+    const displayArray = (numButtonArray) => {
+        let display = [];
+        for (i = 0; i < numButtonArray.length; i++) {
+            let newButton = numButtonArray[i];
+            newButton.addEventListener('click', () => {
+                let num = parseInt(newButton.id);
+                display.push(num);
+            })
+        };
+    
+        return display
+    }
 
-    for (i = 0; i < display.length; i++) {
-        let numComponent = display[i];
-        newNumber.push(numComponent)
-        
-    };
+    const displayNumber = () => {
+        let display = displayArray(numButtonArray)
+        let newNumber = "";
 
-    displayElement.textContent = parseInt(newNumber)
+        for (i = 0; i < display.length; i++) {
+            let numComponent = display[i];
+            newNumber = newNumber + numComponent;
+            console.log(newNumber);
+        };
+    
+        displayElement.textContent = newNumber;
+
+    }
+
+    return { displayNumber }
+
 }
 
 let calculation = calcFlow(numButtonBuilder, calcDisplay)
+calculation.displayNumber();
