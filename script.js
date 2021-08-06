@@ -73,6 +73,7 @@ const calcFlow = (numButtonArray, displayElement) => {
         };
 
         displayElement.textContent = newNumber;
+        return parseInt(newNumber);
     }
 
     for (i = 0; i < numButtonArray.length; i++) {
@@ -81,7 +82,7 @@ const calcFlow = (numButtonArray, displayElement) => {
         newButton.addEventListener('click', () => {
             let num = parseInt(newButton.id);
             display.push(num);
-            newDisplay(display);
+            let newNumber = newDisplay(display);
         })
     };
 
