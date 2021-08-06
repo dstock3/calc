@@ -34,12 +34,6 @@ const numButtonBuilder = (() => {
         let newButton = elementBuilder('button', 'number-button', buttonDiv);
         newButton.setAttribute('id', `${i}`);
         newButton.textContent = `${i}`;
-        newButton.addEventListener('click', () => {
-            let num = parseInt(newButton.id);
-            calcDisplay.textContent = newButton.id;
-            return num;
-        })
-    
         numElementArray.push(newButton);
     };
     
@@ -63,3 +57,20 @@ const calcButtonBuilder = (newCalcArray) => {
 };
 
 let calcButtons = calcButtonBuilder(calcArray);
+
+const calcFLow = (numButtonArray, displayElement) => {
+    const addNumEvent = () => {
+        for (i = 0; i < numButtonArray.length; i++) {
+            let newButton = numButtonArray[i];
+            newButton.addEventListener('click', () => {
+                let num = parseInt(newButton.id);
+                return num;
+            })
+        }
+    }
+
+}
+
+
+
+
