@@ -18,6 +18,12 @@ function elementBuilder(element, classLabel, parentName) {
     return item;
 }
 
+function removeChildren(parent) {
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
+}
+
 /* Calc Visuals */
 
 const body = document.querySelector('body');
