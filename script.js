@@ -18,12 +18,6 @@ function elementBuilder(element, classLabel, parentName) {
     return item;
 }
 
-function removeChildren(parent) {
-    while (parent.firstChild) {
-        parent.removeChild(parent.firstChild);
-    }
-}
-
 /* Calc Visuals */
 
 const body = document.querySelector('body');
@@ -68,17 +62,26 @@ const calcFlow = (numButtonArray, displayElement) => {
 
     let display = [];
     let newNumber = "";
+
+    const newDisplay = (displayArray) => {
+        let newNumber = displayArray[0]
+        displayElement.textContent = newNumber
+
+        for (x = 1; x < displayArray.length; x++) {
+            let numComponent = display[x];
+            newNumber = String(newNumber) + String(numComponent);
+        };
+
+        displayElement.textContent = newNumber;
+    }
+
     for (i = 0; i < numButtonArray.length; i++) {
+        displayElement.innerHTML = ""
         let newButton = numButtonArray[i];
         newButton.addEventListener('click', () => {
             let num = parseInt(newButton.id);
             display.push(num);
-            for (x = 0; x < display.length; x++) {
-                let numComponent = display[x];
-                newNumber = newNumber + numComponent;
-            };
-
-            displayElement.textContent = newNumber;
+            newDisplay(display);
         })
     };
 
