@@ -82,7 +82,7 @@ const calcFlow = (numButtonArray, displayElement) => {
             let num = parseInt(newButton.id);
             display.push(num);
             let newNumber = newDisplay(display);
-            console.log(newNumber)
+            return newNumber
         })
     };
 
@@ -90,4 +90,5 @@ const calcFlow = (numButtonArray, displayElement) => {
 }
 
 let calculation = calcFlow(numButtonBuilder, calcDisplay);
+
 
