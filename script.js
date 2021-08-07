@@ -50,11 +50,6 @@ const calcButtons = (() => {
         let newButton = elementBuilder('button', 'calc-button', buttonDiv);
         newButton.setAttribute('id', `${calcArray[i]}`);
         newButton.textContent = `${calcArray[i]}`;
-        newButton.addEventListener('click', () => {
-            let calc = parseInt(newButton.id);
-            calcDisplay.textContent = newButton.id;
-        });
-    
         calcElementArray.push(newButton);
     };
     return calcElementArray
@@ -88,6 +83,9 @@ const calcFlow = (numButtonArray, displayElement, calculationButtons) => {
                 for (y = 0; y < calculationButtons.length; y++) {
                     let operator = calculationButtons[y];
                     operator.addEventListener('click', () => {
+                        displayElement.innerHTML = ""
+                        let calc = operator.id;
+                        displayElement.textContent = calc;
                         for (x = 0; x < numButtonArray.length; x++) {
                             displayElement.innerHTML = ""
                             let secondButton = numButtonArray[x];
