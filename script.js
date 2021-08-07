@@ -10,8 +10,32 @@ const calc = (() => {
 })();
 
 function operate (numOne, operator, numTwo) {
-    let result = operator(numOne, numTwo);
-    return result
+    if (operator === `+`) {
+        let result = calc.add(numOne, numTwo);
+        return result
+    };
+
+    if (operator === `x`) {
+        let result = calc.mult(numOne, numTwo);
+        return result
+    };
+
+    if (operator === `-`) {
+        let result = calc.sub(numOne, numTwo);
+        return result
+    };
+
+    if (operator === `/`) {
+        let result = calc.div(numOne, numTwo);
+        return result
+    };
+
+    if (operator === `^`) {
+        let result = calc.exp(numOne, numTwo);
+        return result
+    };
+
+
 }
 
 /* DOM manipulation */
@@ -74,30 +98,27 @@ const calcFlow = (numButtonArray, displayElement, calculationButtons) => {
 
     const expression = () => {
         for (i = 0; i < numButtonArray.length; i++) {
-            displayElement.innerHTML = ""
             let firstButton = numButtonArray[i];
             firstButton.addEventListener('click', () => {
                 let num = parseInt(firstButton.id);
                 display.push(num);
                 let numOne = newDisplay(display);
                 for (y = 0; y < calculationButtons.length; y++) {
-                    let operator = calculationButtons[y];
-                    operator.addEventListener('click', () => {
-                        displayElement.innerHTML = ""
-                        let calc = operator.id;
-                        displayElement.textContent = calc;
+                    let operatorElement = calculationButtons[y];
+                    let operator = operatorElement.id;
+                    operatorElement.addEventListener('click', () => {
+                        displayElement.textContent = operator;
                         for (x = 0; x < numButtonArray.length; x++) {
-                            displayElement.innerHTML = ""
                             let secondButton = numButtonArray[x];
                             secondButton.addEventListener('click', () => {
+                                display = [];
                                 let num = parseInt(secondButton.id);
                                 display.push(num);
                                 let numTwo = newDisplay(display);
                                 let operation = operate(numOne, operator, numTwo);
                                 display.push(operation);
                                 let result = newDisplay(display);
-                            })
-
+                            });
                         };
                     });
                     
