@@ -80,16 +80,28 @@ const calcFlow = (numButtonArray, displayElement, calculationButtons) => {
     const expression = () => {
         for (i = 0; i < numButtonArray.length; i++) {
             displayElement.innerHTML = ""
-            let newButton = numButtonArray[i];
-            newButton.addEventListener('click', () => {
-                let num = parseInt(newButton.id);
+            let firstButton = numButtonArray[i];
+            firstButton.addEventListener('click', () => {
+                let num = parseInt(firstButton.id);
                 display.push(num);
-                let newNumber = newDisplay(display);
+                let numOne = newDisplay(display);
 
                 for (y = 0; y < calculationButtons.length; y++) {
+                    let operator = calculationButtons[y];
+                    operator.addEventListener('click', () => {
+                        for (x = 0; x < numButtonArray.length; x++) {
+                            displayElement.innerHTML = ""
+                            let secondButton = numButtonArray[x];
+                            secondButton.addEventListener('click', () => {
+                                let num = parseInt(secondButton.id);
+                                display.push(num);
+                                let numTwo = newDisplay(display);
+                            })
 
+                        };
+                    });
+                    
                 };
-                
             })
         };
     }
