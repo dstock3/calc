@@ -61,7 +61,6 @@ let calcButtons = calcButtonBuilder(calcArray);
 const calcFlow = (numButtonArray, displayElement) => {
 
     let display = [];
-    let newNumber = "";
 
     const newDisplay = (displayArray) => {
         let newNumber = displayArray[0]
