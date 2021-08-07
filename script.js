@@ -85,7 +85,6 @@ const calcFlow = (numButtonArray, displayElement, calculationButtons) => {
                 let num = parseInt(firstButton.id);
                 display.push(num);
                 let numOne = newDisplay(display);
-
                 for (y = 0; y < calculationButtons.length; y++) {
                     let operator = calculationButtons[y];
                     operator.addEventListener('click', () => {
@@ -96,6 +95,9 @@ const calcFlow = (numButtonArray, displayElement, calculationButtons) => {
                                 let num = parseInt(secondButton.id);
                                 display.push(num);
                                 let numTwo = newDisplay(display);
+                                let operation = operate(numOne, operator, numTwo);
+                                display.push(operation);
+                                let result = newDisplay(display);
                             })
 
                         };
