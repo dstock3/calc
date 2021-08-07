@@ -9,6 +9,11 @@ const calc = (() => {
     return { add, mult, sub, div, exp }
 })();
 
+function operate (numOne, operator, numTwo) {
+    let result = operator(numOne, numTwo);
+    return result
+}
+
 /* DOM manipulation */
 
 function elementBuilder(element, classLabel, parentName) {
