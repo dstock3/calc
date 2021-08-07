@@ -9,35 +9,6 @@ const calc = (() => {
     return { add, mult, sub, div, exp }
 })();
 
-function operate (numOne, operator, numTwo) {
-    if (operator === `+`) {
-        let result = calc.add(numOne, numTwo);
-        return result
-    };
-
-    if (operator === `x`) {
-        let result = calc.mult(numOne, numTwo);
-        return result
-    };
-
-    if (operator === `-`) {
-        let result = calc.sub(numOne, numTwo);
-        return result
-    };
-
-    if (operator === `/`) {
-        let result = calc.div(numOne, numTwo);
-        return result
-    };
-
-    if (operator === `^`) {
-        let result = calc.exp(numOne, numTwo);
-        return result
-    };
-
-
-}
-
 /* DOM manipulation */
 
 function elementBuilder(element, classLabel, parentName) {
@@ -96,6 +67,43 @@ const calcFlow = (numButtonArray, displayElement, calculationButtons) => {
         return parseInt(newNumber);
     }
 
+    const operation = (numOne, operator, numTwo) => {
+        if (operator === `+`) {
+            let newOperation = calc.add(numOne, numTwo);
+            display.push(newOperation);
+            let result = newDisplay(display);
+            return result
+        };
+    
+        if (operator === `x`) {
+            let newOperation = calc.mult(numOne, numTwo);
+            display.push(newOperation);
+            let result = newDisplay(display);
+            return result
+        };
+    
+        if (operator === `-`) {
+            let newOperation = calc.sub(numOne, numTwo);
+            display.push(newOperation);
+            let result = newDisplay(display);
+            return result
+        };
+    
+        if (operator === `/`) {
+            let newOperation = calc.div(numOne, numTwo);
+            display.push(newOperation);
+            let result = newDisplay(display);
+            return result
+        };
+    
+        if (operator === `^`) {
+            let newOperation = calc.exp(numOne, numTwo);
+            display.push(newOperation);
+            let result = newDisplay(display);
+            return result
+        };
+    }
+
     const expression = () => {
         for (i = 0; i < numButtonArray.length; i++) {
             let firstButton = numButtonArray[i];
@@ -110,14 +118,13 @@ const calcFlow = (numButtonArray, displayElement, calculationButtons) => {
                         displayElement.textContent = operator;
                         for (x = 0; x < numButtonArray.length; x++) {
                             let secondButton = numButtonArray[x];
+                            display = [];
                             secondButton.addEventListener('click', () => {
-                                display = [];
                                 let num = parseInt(secondButton.id);
                                 display.push(num);
                                 let numTwo = newDisplay(display);
-                                let operation = operate(numOne, operator, numTwo);
-                                display.push(operation);
-                                let result = newDisplay(display);
+
+                                let result = operation(numOne, operator, numTwo);
                             });
                         };
                     });
