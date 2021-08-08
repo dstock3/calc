@@ -112,7 +112,7 @@ const calcFlow = (numButtonArray, displayElement, calculationButtons) => {
                 display.push(num);
                 console.log("For num one: " + display)
                 let numOne = newDisplay(display);
-                for (y = 0; y < calculationButtons.length; y++) {
+                for (y = 0; y < calculationButtons.length - 1; y++) {
                     display = [];
                     let operatorElement = calculationButtons[y];
                     let operator = operatorElement.id;
