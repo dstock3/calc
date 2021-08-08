@@ -58,8 +58,7 @@ const calcButtons = (() => {
 
 const calcFlow = (numButtonArray, displayElement, calculationButtons) => {
 
-    let numOneArray = [];
-    let numTwoArray = [];
+    let display = [];
 
     const newDisplay = (displayArray) => {
         let newNumber = displayArray[0]
@@ -111,7 +110,7 @@ const calcFlow = (numButtonArray, displayElement, calculationButtons) => {
         };
     }
 
-    const newOperation = (firstNumber) => {
+    const newOperation = (firstNumber, displayArray) => {
         for (y = 0; y < calculationButtons.length; y++) {
             let operatorElement = calculationButtons[y];
             let operator = operatorElement.id;
@@ -120,22 +119,22 @@ const calcFlow = (numButtonArray, displayElement, calculationButtons) => {
                     let numOneArray = [firstNumber];
                     numOne = newDisplay(numOneArray);
                 } else {
-                    return operator
+                    return [operator, displayArray]
                 }
             });
         }
     }
 
-    const getSecondNum = () => {
+    const getSecondNum = (operator, displayArray) => {
         displayElement.textContent = operator;
         for (x = 0; x < numButtonArray.length; x++) {
             let secondButton = numButtonArray[x];
             secondButton.addEventListener('click', function getNumTwo() {
                 let num = parseInt(secondButton.id);
-                numTwoArray.push(num);
-                console.log("For num two: " + numTwoArray)
-                let numTwo = newDisplay(numTwoArray);
-                return numTwo
+                displayArray.push(num);
+                console.log("For num two: " + displayArray)
+                let numTwo = newDisplay(displayArray);
+                return [numTwo, displayArray]
             });
         }
     }
@@ -145,12 +144,16 @@ const calcFlow = (numButtonArray, displayElement, calculationButtons) => {
             let firstButton = numButtonArray[i];
             firstButton.addEventListener('click', function getNumOne() {
                 let num = parseInt(firstButton.id);
-                numOneArray.push(num);
-                console.log("For num one: " + numOneArray)
-                let numOne = newDisplay(numOneArray);
-                let operator = newOperation(numOne);
-                let numTwo = getSecondNum();
-                let result = operation(numOne, operator, numTwo, display);
+                display.push(num);
+                console.log("For num one: " + display)
+                let numOne = newDisplay(display);
+                let operatorArray = newOperation(numOne, display);
+                let operator = operatorArray[0];
+                let secondDisplay = operatorArray[1];
+                let numTwoArray = getSecondNum(operator, secondDisplay);
+                let numTwo = numTwoArray[0];
+                let finalDisplay = numTwoArray[1];
+                let result = operation(numOne, operator, numTwo, finalDisplay);
             });
         };
     }
