@@ -1,11 +1,13 @@
 body {
     background-color: black;
 }
+
 .calc-div {
+    font-family: 'Roboto Mono', monospace;
     margin: auto;
     border: 2px solid white;
     background: black;
-    padding: 1%;
+    padding: 2%;
     border-radius: 10px;
     width: 250px;
     height: 500px;
@@ -20,6 +22,7 @@ body {
     border: 1px solid white;
     border-radius: 8px;
     padding: 10px;
+    padding-inline: 7%;
 }
 
 .button {
