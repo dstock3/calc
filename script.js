@@ -120,14 +120,13 @@ const calcFlow = (numButtonArray, displayElement, calculationButtons) => {
                     let numOneArray = [firstNumber];
                     numOne = newDisplay(numOneArray);
                 } else {
-                    numTwo = getSecondNum(firstNumber)
-                    return numTwo
+                    return operator
                 }
             });
         }
     }
 
-    const getSecondNum = (firstNumber) => {
+    const getSecondNum = () => {
         displayElement.textContent = operator;
         for (x = 0; x < numButtonArray.length; x++) {
             let secondButton = numButtonArray[x];
@@ -149,8 +148,9 @@ const calcFlow = (numButtonArray, displayElement, calculationButtons) => {
                 numOneArray.push(num);
                 console.log("For num one: " + numOneArray)
                 let numOne = newDisplay(numOneArray);
-                let numTwo = newOperation(numOne);
-                //let result = operation(numOne, operator, numTwo, display);
+                let operator = newOperation(numOne);
+                let numTwo = getSecondNum();
+                let result = operation(numOne, operator, numTwo, display);
             });
         };
     }
