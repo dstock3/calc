@@ -74,7 +74,7 @@ const calcFlow = (numButtonArray, displayElement, calculationButtons) => {
         return parseInt(newNumber);
     }
 
-    const operation = (numOne, operator, numTwo) => {
+    const operation = (numOne, operator, numTwo, display) => {
         if (operator === `+`) {
             let newOperation = calc.add(numOne, numTwo);
             display.push(newOperation);
@@ -145,7 +145,7 @@ const calcFlow = (numButtonArray, displayElement, calculationButtons) => {
                 console.log("For num one: " + numOneArray)
                 let numOne = newDisplay(numOneArray);
                 newOperation(numOne);
-                //let result = operation(numOne, operator, numTwo);
+                //let result = operation(numOne, operator, numTwo, display);
             });
         };
     }
