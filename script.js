@@ -26,6 +26,8 @@ const calcDisplay = elementBuilder('div', 'calc-display', calcDiv);
 const buttonDiv = elementBuilder('div', 'button-div', calcDiv);
 calcDisplay.textContent = "";
 
+/* Button Elements */
+
 const numButtonBuilder = (() => {
     let numElementArray = []
     for (i = 0; i < 10; i++) {
@@ -49,6 +51,8 @@ const calcButtons = (() => {
     };
     return calcElementArray
 })();
+
+/* Main Program */
 
 const calcFlow = (numButtonArray, displayElement, calculationButtons) => {
 
