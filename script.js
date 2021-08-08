@@ -59,7 +59,7 @@ const calcFlow = (numButtonArray, displayElement, calculationButtons) => {
         displayElement.textContent = newNumber
 
         for (x = 1; x < displayArray.length; x++) {
-            let numComponent = display[x];
+            let numComponent = displayArray[x];
             newNumber = String(newNumber) + String(numComponent);
         };
 
@@ -112,19 +112,24 @@ const calcFlow = (numButtonArray, displayElement, calculationButtons) => {
                 display.push(num);
                 console.log("For num one: " + display)
                 let numOne = newDisplay(display);
-                for (y = 0; y < calculationButtons.length - 1; y++) {
-                    display = [];
+                for (y = 0; y < calculationButtons.length; y++) {
                     let operatorElement = calculationButtons[y];
                     let operator = operatorElement.id;
                     operatorElement.addEventListener('click', function getOperator() {
+                        if (operator === `=`) {
+                            let numOne = newDisplay(display);
+                        };
                         displayElement.textContent = operator;
                         for (x = 0; x < numButtonArray.length; x++) {
                             let secondButton = numButtonArray[x];
                             secondButton.addEventListener('click', function getNumTwo() {
+                                display = [];
+                                firstButton.removeEventListener('click', getNumOne);
                                 let num = parseInt(secondButton.id);
                                 display.push(num);
                                 console.log("For num two: " + display)
                                 let numTwo = newDisplay(display);
+                                console.log(numTwo)
 
                                 //let result = operation(numOne, operator, numTwo);
                             });
