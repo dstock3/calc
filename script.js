@@ -120,18 +120,23 @@ const calcFlow = (numButtonArray, displayElement, calculationButtons) => {
                     let numOneArray = [firstNumber];
                     numOne = newDisplay(numOneArray);
                 } else {
-                    displayElement.textContent = operator;
-                    for (x = 0; x < numButtonArray.length; x++) {
-                        let secondButton = numButtonArray[x];
-                        secondButton.addEventListener('click', function getNumTwo() {
-                            let num = parseInt(secondButton.id);
-                            numTwoArray.push(num);
-                            console.log("For num two: " + numTwoArray)
-                            let numTwo = newDisplay(numTwoArray);
-                            console.log(numTwo)
-                        });
-                    }
+                    numTwo = getSecondNum(firstNumber)
+                    return numTwo
                 }
+            });
+        }
+    }
+
+    const getSecondNum = (firstNumber) => {
+        displayElement.textContent = operator;
+        for (x = 0; x < numButtonArray.length; x++) {
+            let secondButton = numButtonArray[x];
+            secondButton.addEventListener('click', function getNumTwo() {
+                let num = parseInt(secondButton.id);
+                numTwoArray.push(num);
+                console.log("For num two: " + numTwoArray)
+                let numTwo = newDisplay(numTwoArray);
+                return numTwo
             });
         }
     }
@@ -144,7 +149,7 @@ const calcFlow = (numButtonArray, displayElement, calculationButtons) => {
                 numOneArray.push(num);
                 console.log("For num one: " + numOneArray)
                 let numOne = newDisplay(numOneArray);
-                newOperation(numOne);
+                let numTwo = newOperation(numOne);
                 //let result = operation(numOne, operator, numTwo, display);
             });
         };
