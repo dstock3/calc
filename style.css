@@ -1,7 +1,10 @@
+body {
+    background-color: black;
+}
 .calc-div {
     margin: auto;
-    border: 2px solid black;
-    background-color: #75c3fa;
+    border: 2px solid white;
+    background: black;
     padding: 1%;
     border-radius: 10px;
     width: 250px;
@@ -18,12 +21,19 @@
     padding: 10px;
 }
 
-.number-button {
+.button {
+    background-color: black;
+    color: white;
+}
+
+.number {
+    font-size: 1.5em;
     padding: 10px;
 }
 
-.calc-button {
-    padding: 10px;
+.calc {
+    font-size: 1.25em;
+    padding: 5px;
 }
 
 .button-div {
