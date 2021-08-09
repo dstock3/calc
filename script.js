@@ -23,7 +23,9 @@ function elementBuilder(element, classLabel, parentName) {
 const body = document.querySelector('body');
 const calcDivBkg = elementBuilder('div', 'calc-bkg', body);
 const calcDiv = elementBuilder('div', 'calc-div', body);
-const calcDisplay = elementBuilder('div', 'calc-display', calcDiv);
+const displayDiv = elementBuilder('div', 'display-div', calcDiv)
+const calcDisplay = elementBuilder('div', 'calc-display', displayDiv);
+const calcDisplayBkg = elementBuilder('div', 'display-bkg', displayDiv);
 const buttonDiv = elementBuilder('div', 'button-div', calcDiv);
 calcDisplay.textContent = "";
 
