@@ -73,39 +73,40 @@ const calcFlow = (numButtonArray, displayElement, calculationButtons) => {
         return parseInt(newNumber);
     }
 
-    const operation = (numOne, operator, numTwo, display) => {
+    const operation = (numOne, operator, numTwo) => {
+        let resultArray = []
         if (operator === `+`) {
             let newOperation = calc.add(numOne, numTwo);
-            display.push(newOperation);
-            let result = newDisplay(display);
+            resultArray.push(newOperation);
+            let result = newDisplay(resultArray);
             return result
         };
     
         if (operator === `x`) {
             let newOperation = calc.mult(numOne, numTwo);
-            display.push(newOperation);
-            let result = newDisplay(display);
+            resultArray.push(newOperation);
+            let result = newDisplay(resultArray);
             return result
         };
     
         if (operator === `-`) {
             let newOperation = calc.sub(numOne, numTwo);
-            display.push(newOperation);
-            let result = newDisplay(display);
+            resultArray.push(newOperation);
+            let result = newDisplay(resultArray);
             return result
         };
     
         if (operator === `/`) {
             let newOperation = calc.div(numOne, numTwo);
-            display.push(newOperation);
-            let result = newDisplay(display);
+            resultArray.push(newOperation);
+            let result = newDisplay(resultArray);
             return result
         };
     
         if (operator === `^`) {
             let newOperation = calc.exp(numOne, numTwo);
-            display.push(newOperation);
-            let result = newDisplay(display);
+            resultArray.push(newOperation);
+            let result = newDisplay(resultArray);
             return result
         };
     }
@@ -116,25 +117,24 @@ const calcFlow = (numButtonArray, displayElement, calculationButtons) => {
             let operator = operatorElement.id;
             operatorElement.addEventListener('click', function getOperator() {
                 if (operator === `=`) {
-                    let numOneArray = [firstNumber];
-                    numOne = newDisplay(numOneArray);
+                    displayArray = [firstNumber]
+                    numOne = newDisplay(displayArray);
                 } else {
+                    displayElement.textContent = operator;
                     return [operator, displayArray]
                 }
             });
         }
     }
 
-    const getSecondNum = (operator, displayArray) => {
-        displayElement.textContent = operator;
+    const getSecondNum = () => {
         for (x = 0; x < numButtonArray.length; x++) {
             let secondButton = numButtonArray[x];
             secondButton.addEventListener('click', function getNumTwo() {
                 let num = parseInt(secondButton.id);
                 displayArray.push(num);
-                console.log("For num two: " + displayArray)
                 let numTwo = newDisplay(displayArray);
-                return [numTwo, displayArray]
+                return numTwo
             });
         }
     }
@@ -145,15 +145,12 @@ const calcFlow = (numButtonArray, displayElement, calculationButtons) => {
             firstButton.addEventListener('click', function getNumOne() {
                 let num = parseInt(firstButton.id);
                 display.push(num);
-                console.log("For num one: " + display)
                 let numOne = newDisplay(display);
                 let operatorArray = newOperation(numOne, display);
                 let operator = operatorArray[0];
-                let secondDisplay = operatorArray[1];
-                let numTwoArray = getSecondNum(operator, secondDisplay);
-                let numTwo = numTwoArray[0];
-                let finalDisplay = numTwoArray[1];
-                let result = operation(numOne, operator, numTwo, finalDisplay);
+                display = operator[1];
+                let numTwo = getSecondNum(display);
+                let result = operation(numOne, operator, numTwo); 
             });
         };
     }
