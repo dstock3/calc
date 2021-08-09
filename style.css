@@ -1,8 +1,10 @@
 body {
     background-color: black;
+    display: flex;
 }
 
 .calc-div {
+    position: relative;
     font-family: 'Roboto Mono', monospace;
     margin: auto;
     border: 2px solid white;
@@ -11,6 +13,7 @@ body {
     border-radius: 10px;
     width: 250px;
     height: 500px;
+    right: 5%;
 }
 
 .calc-bkg {
@@ -18,12 +21,10 @@ body {
     height: 500px;
     border-radius: 10px;
     background: white;
-    position: absolute;
-    margin: auto;
+    position: relative;
     padding: 2%;
-    left: 40%;
-    top: 2%;
-    /*z-index: ;*/
+    left: 44%;
+    opacity: 0.85;
 }
 
 .calc-display {

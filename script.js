@@ -21,10 +21,9 @@ function elementBuilder(element, classLabel, parentName) {
 /* Calc Visuals */
 
 const body = document.querySelector('body');
-const calcDiv = elementBuilder('div', 'calc-div', body);
 const calcDivBkg = elementBuilder('div', 'calc-bkg', body);
+const calcDiv = elementBuilder('div', 'calc-div', body);
 const calcDisplay = elementBuilder('div', 'calc-display', calcDiv);
-const calcDisplayBkg = elementBuilder('div', 'calc-display', calcDiv);
 const buttonDiv = elementBuilder('div', 'button-div', calcDiv);
 calcDisplay.textContent = "";
 
