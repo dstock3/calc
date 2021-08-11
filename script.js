@@ -57,11 +57,11 @@ const calcButtons = (() => {
     return calcElementArray
 })();
 
+let display = [];
+
 /* Main Program */
 
 const calcFlow = (numButtonArray, displayElement, calculationButtons) => {
-
-    let display = [];
 
     const numberEvent = () => {
         for (i = 0; i < numButtonArray.length; i++) {
@@ -69,7 +69,7 @@ const calcFlow = (numButtonArray, displayElement, calculationButtons) => {
             numButton.addEventListener('click', function getNum() {
                 let num = parseInt(numButton.id);
                 display.push(num);
-                getNumOne(display);
+                getNum(display);
             });
         }
     }
@@ -125,35 +125,25 @@ const calcFlow = (numButtonArray, displayElement, calculationButtons) => {
         };
     }
 
-    const newOperation = (firstNumber, displayArray) => {
+    const getOperator = () => {
         for (y = 0; y < calculationButtons.length; y++) {
             let operatorElement = calculationButtons[y];
             let operator = operatorElement.id;
             operatorElement.addEventListener('click', function getOperator() {
-                if (operator === `=`) {
-                    displayArray = [firstNumber]
-                    numOne = newDisplay(displayArray);
-                } else {
-                    displayElement.textContent = operator;
-                    return [operator, displayArray]
-                }
+                displayElement.textContent = operator;
+                return operator
             });
         }
     }
 
-    const getSecondNum = () => {
-        for (x = 0; x < numButtonArray.length; x++) {
-            let secondButton = numButtonArray[x];
-            secondButton.addEventListener('click', function getNumTwo() {
-                let num = parseInt(secondButton.id);
-                displayArray.push(num);
-                let numTwo = newDisplay(displayArray);
-                return numTwo
-            });
+    const execution = () => {
+        let operator = getOperator();
+        let display = [];
+        numberEvent();
         }
-    }
 
-    const getNumOne = (displayArray) => {
+
+    const getNum = (displayArray) => {
         let numOne = newDisplay(displayArray);
         return numOne
 
@@ -174,8 +164,10 @@ const calcFlow = (numButtonArray, displayElement, calculationButtons) => {
         }; */
     }
 
-    return { numberEvent, getNumOne }
+    return { numberEvent, execution }
 }
 
-let calculation = calcFlow(numButtonBuilder, calcDisplay, calcButtons);
-let newNumber = calculation.numberEvent();
+let calculator = calcFlow(numButtonBuilder, calcDisplay, calcButtons);
+let newNumber = calculator.numberEvent();
+let calculation = calculator.execution()
+
