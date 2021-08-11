@@ -108,7 +108,7 @@ const numberEvent = (displayArray, displayElement) => {
 }
 
 const getOperator = (calculationButtons, displayElement) => {
-    for (y = 0; y < calculationButtons.length; y++) {
+    for (y = 0; y < calculationButtons.length -1; y++) {
         let operatorElement = calculationButtons[y];
         let operator = operatorElement.id;
         operatorElement.addEventListener('click', function getOperator() {
@@ -118,7 +118,15 @@ const getOperator = (calculationButtons, displayElement) => {
     }
 }
 
+const operation = (displayElement) => {
+    let equals = document.getElementById("=");
+    equals.addEventListener('click', function getOperator() {
+        displayElement.textContent = "=";
+    });
+}
+
 numberEvent(display, calcDisplay);
 getOperator(calcButtons, calcDisplay);
+operation(calcDisplay)
 
 
