@@ -107,5 +107,18 @@ const numberEvent = (displayArray, displayElement) => {
     }
 }
 
+const getOperator = (calculationButtons, displayElement) => {
+    for (y = 0; y < calculationButtons.length; y++) {
+        let operatorElement = calculationButtons[y];
+        let operator = operatorElement.id;
+        operatorElement.addEventListener('click', function getOperator() {
+            displayElement.textContent = operator;
+            return operator
+        });
+    }
+}
+
 numberEvent(display, calcDisplay);
+getOperator(calcButtons, calcDisplay);
+
 
