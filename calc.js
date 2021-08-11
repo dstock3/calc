@@ -76,7 +76,13 @@ const getNum = (displayArray, displayElement) => {
     return numOne
 }
 
-const numberEvent = (displayArray) => {
+const numGetter = (displayArray, numButtonnId, displayElement) => {
+    let num = parseInt(numButtonnId);
+    displayArray.push(num);
+    getNum(displayArray, displayElement);
+}
+
+const numberEvent = (displayArray, displayElement) => {
     if (!(displayArray.length > 0)) {
         displayArray.push(0);
         newDisplay(displayArray, calcDisplay);
@@ -85,13 +91,9 @@ const numberEvent = (displayArray) => {
             numButton.addEventListener('click', function newNum() {
                 if (displayArray[0] === 0) {
                     displayArray.splice(0, 1);
-                    let num = parseInt(numButton.id);
-                    displayArray.push(num);
-                    getNum(displayArray, calcDisplay);
+                    numGetter(displayArray, numButton.id, displayElement);
                 } else {
-                    let num = parseInt(numButton.id);
-                    displayArray.push(num);
-                    getNum(displayArray, calcDisplay);
+                    numGetter(displayArray, numButton.id, displayElement);
                 }
             });
         }
@@ -99,14 +101,11 @@ const numberEvent = (displayArray) => {
         for (i = 0; i < numButtons.length; i++) {
             let numButton = numButtons[i];
             numButton.addEventListener('click', function newNum() {
-                let num = parseInt(numButton.id);
-                displayArray.push(num);
-                getNum(displayArray, calcDisplay);
-                console.log(display)
+                numGetter(displayArray, numButton.id, displayElement);
             });
         }
     }
 }
 
-numberEvent(display);
+numberEvent(display, calcDisplay);
 
