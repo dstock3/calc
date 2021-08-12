@@ -19,21 +19,23 @@ const calc = (() => {
 })();
 
 /* Calc Elements */
-
-const body = document.querySelector('body');
-const calcDivBkg = elementBuilder('div', 'calc-bkg', body);
-const calcDiv = elementBuilder('div', 'calc-div', body);
-const displayDiv = elementBuilder('div', 'display-div', calcDiv)
-const calcDisplay = elementBuilder('div', 'calc-display', displayDiv);
-const calcDisplayBkg = elementBuilder('div', 'display-bkg', displayDiv);
-const buttonDiv = elementBuilder('div', 'button-div', calcDiv);
+const elements = (() => {
+    const body = document.querySelector('body');
+    const calcDivBkg = elementBuilder('div', 'calc-bkg', body);
+    const calcDiv = elementBuilder('div', 'calc-div', body);
+    const displayDiv = elementBuilder('div', 'display-div', calcDiv)
+    const calcDisplay = elementBuilder('div', 'calc-display', displayDiv);
+    const calcDisplayBkg = elementBuilder('div', 'display-bkg', displayDiv);
+    const buttonDiv = elementBuilder('div', 'button-div', calcDiv);
+    return { body, calcDiv, calcDisplay, buttonDiv }
+})();
 
 /* Button Elements */
 
 const numButtons = (() => {
     let numElementArray = []
     for (i = 0; i < 10; i++) {
-        let newButton = elementBuilder('button', 'button', buttonDiv);
+        let newButton = elementBuilder('button', 'button', elements.buttonDiv);
         newButton.classList.add(`number`);
         newButton.setAttribute('id', `${i}`);
         newButton.textContent = `${i}`;
@@ -47,7 +49,7 @@ const calcButtons = (() => {
     const calcArray = ['+', '-', 'x', '/', '^', `=`];
     let calcElementArray = [];
     for (i = 0; i < calcArray.length; i++) {
-        let newButton = elementBuilder('button', 'button', buttonDiv);
+        let newButton = elementBuilder('button', 'button', elements.buttonDiv);
         newButton.classList.add(`calc`);
         newButton.setAttribute('id', `${calcArray[i]}`);
         newButton.textContent = `${calcArray[i]}`;
@@ -87,17 +89,27 @@ const numGetter = (displayArray, numButtonnId, displayElement) => {
 const numberEvent = (displayArray, operationArray, calculationButtons, displayElement) => {
     if (!(displayArray.length > 0)) {
         displayArray.push(0);
-        newDisplay(displayArray, calcDisplay);
+        newDisplay(displayArray, elements.calcDisplay);
         for (i = 0; i < numButtons.length; i++) {
             let numButton = numButtons[i];
             numButton.addEventListener('click', function newNum() {
                 if (displayArray[0] === 0) {
                     displayArray.splice(0, 1);
                     let numOne = numGetter(displayArray, numButton.id, displayElement);
-                    getOperator(display, operationArray, calculationButtons, calcDisplay);
+                    let newDisplayArray = getOperator(display, operationArray, calculationButtons, elements.calcDisplay);
+                    console.log(newDisplayArray)
+                    if (!(newDisplayArray.length > 0)) {
+                        let numTwo = numGetter(newDisplayArray, numButton.id, displayElement);
+
+                    }
                 } else {
                     let numOne = numGetter(displayArray, numButton.id, displayElement);
-                    getOperator(display, operationArray, calculationButtons, calcDisplay);
+                    let newDisplayArray = getOperator(display, operationArray, calculationButtons, elements.calcDisplay);
+                    console.log(newDisplayArray)
+                    if (!(newDisplayArray.length > 0)) {
+                        let numTwo = numGetter(newDisplayArray, numButton.id, displayElement);
+
+                    }
                 }
             });
         }
@@ -106,7 +118,13 @@ const numberEvent = (displayArray, operationArray, calculationButtons, displayEl
             let numButton = numButtons[i];
             numButton.addEventListener('click', function newNum() {
                 let numOne = numGetter(displayArray, numButton.id, displayElement);
-                getOperator(displayArray, operationArray, calculationButtons, displayElement);
+                let newDisplayArray = getOperator(displayArray, operationArray, calculationButtons, displayElement);
+                console.log(newDisplayArray)
+                if (!(newDisplayArray.length > 0)) {
+                    let numTwo = numGetter(newDisplayArray, numButton.id, displayElement);
+
+                }
+
             });
         }
     }
@@ -119,6 +137,8 @@ const getOperator = (displayArray, operationArray, calculationButtons, displayEl
         operatorElement.addEventListener('click', function getOperator() {
             displayElement.textContent = operator;
             operationArray.push(operator);
+            displayArray = []
+            return displayArray
         });
     }
 }
@@ -177,7 +197,7 @@ const operation = (calculator, operationArray, displayElement) => {
     });
 }
 
-numberEvent(display, opArray, calcButtons, calcDisplay);
+numberEvent(display, opArray, calcButtons, elements.calcDisplay);
 
 //operation(calc, opArray, calcDisplay);
 
