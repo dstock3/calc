@@ -59,7 +59,6 @@ const calcButtons = (() => {
 })();
 
 let display = [];
-let opArray = [];
 
 const newDisplay = (displayArray, displayElement) => {
     let newNumber = displayArray[0]
@@ -86,7 +85,12 @@ const numGetter = (displayArray, numButtonnId, displayElement) => {
     return num
 }
 
-const numberEvent = (displayArray, operationArray, calculationButtons, displayElement) => {
+const clearDisplay = () => {
+    let display = document.getElementsByClassName("calc-display")[0];
+    display.textContent = 0;
+}
+
+const numberEvent = (displayArray, calculationButtons, displayElement) => {
     if (!(displayArray.length > 0)) {
         displayArray.push(0);
         newDisplay(displayArray, elements.calcDisplay);
@@ -96,20 +100,10 @@ const numberEvent = (displayArray, operationArray, calculationButtons, displayEl
                 if (displayArray[0] === 0) {
                     displayArray.splice(0, 1);
                     let numOne = numGetter(displayArray, numButton.id, displayElement);
-                    let newDisplayArray = getOperator(display, operationArray, calculationButtons, elements.calcDisplay);
-                    console.log(newDisplayArray)
-                    if (!(newDisplayArray.length > 0)) {
-                        let numTwo = numGetter(newDisplayArray, numButton.id, displayElement);
-
-                    }
+                    getOperator(numOne, calculationButtons, displayElement);
                 } else {
                     let numOne = numGetter(displayArray, numButton.id, displayElement);
-                    let newDisplayArray = getOperator(display, operationArray, calculationButtons, elements.calcDisplay);
-                    console.log(newDisplayArray)
-                    if (!(newDisplayArray.length > 0)) {
-                        let numTwo = numGetter(newDisplayArray, numButton.id, displayElement);
-
-                    }
+                    getOperator(numOne, calculationButtons, displayElement);
                 }
             });
         }
@@ -118,28 +112,22 @@ const numberEvent = (displayArray, operationArray, calculationButtons, displayEl
             let numButton = numButtons[i];
             numButton.addEventListener('click', function newNum() {
                 let numOne = numGetter(displayArray, numButton.id, displayElement);
-                let newDisplayArray = getOperator(displayArray, operationArray, calculationButtons, displayElement);
-                console.log(newDisplayArray)
-                if (!(newDisplayArray.length > 0)) {
-                    let numTwo = numGetter(newDisplayArray, numButton.id, displayElement);
-
-                }
-
+                getOperator(numOne, calculationButtons, displayElement);
             });
         }
     }
 }
 
-const getOperator = (displayArray, operationArray, calculationButtons, displayElement) => {
-    for (y = 0; y < calculationButtons.length -1; y++) {
-        let operatorElement = calculationButtons[y];
+const getOperator = (numOne, calculationButtons, displayElement) => {
+    let operatorArray = [numOne]
+    for (i = 0; i < calculationButtons.length - 1; i++) {
+        let operatorElement = calculationButtons[i];
         let operator = operatorElement.id;
         operatorElement.addEventListener('click', function getOperator() {
             displayElement.textContent = operator;
-            operationArray.push(operator);
-            displayArray = []
-            return displayArray
-        });
+            operatorArray.push(operator);
+            console.log(operatorArray)
+        }); 
     }
 }
 
@@ -181,24 +169,8 @@ const operationMatcher = (calculator, operator, numOne, numTwo) => {
     };
 }
 
-const operation = (calculator, operationArray, displayElement) => {
-    let displayArray = [];
-    numberEvent(displayArray, calcDisplay);
-    let equals = document.getElementById("=");
-    equals.addEventListener('click', function getOperator() {
-        displayElement.textContent = "=";
-        if (operationArray.length == 3) {
-            let numOne = operationArray[0];
-            let operator = operationArray[1];
-            let numTwo = operationArray[2];
-            let result = operationMatcher(calculator, operator, numOne, numTwo);
-            return result
-        }
-    });
-}
+numberEvent(display, calcButtons, elements.calcDisplay);
 
-numberEvent(display, opArray, calcButtons, elements.calcDisplay);
 
-//operation(calc, opArray, calcDisplay);
 
 
