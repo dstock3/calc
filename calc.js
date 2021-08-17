@@ -15,7 +15,31 @@ const calc = (() => {
     const sub = (x, y) => x - y;
     const div = (x, y) => x / y;
     const exp = (x, y) => x ** y;
-    return { add, mult, sub, div, exp }
+
+    const operation = (operator, x, y) => {
+        if (operator === '+') {
+            let sum = add(x, y)
+            return sum
+        }
+        if (operator === "x") {
+            let product = mult(x, y)
+            return product
+        }
+        if (operator === "-") {
+            let difference = sub(x, y)
+            return difference
+        }
+        if (operator === "/") {
+            let quotient = div(x, y)
+            return quotient
+        }
+        if (operator === "^") {
+            let power = exp(x, y)
+            return power
+        }
+    }
+
+    return { add, mult, sub, div, exp, operation}
 })();
 
 /* Calc Elements */
@@ -27,22 +51,39 @@ const elements = (() => {
     const calcDisplay = elementBuilder('div', 'calc-display', displayDiv);
     const calcDisplayBkg = elementBuilder('div', 'display-bkg', displayDiv);
     const buttonDiv = elementBuilder('div', 'button-div', calcDiv);
-    return { body, calcDiv, calcDisplay, buttonDiv }
+
+    const clearDisplay = () => {
+        calcDisplay.textContent = 0;
+    }
+
+    const pushToDisplay = (num) => {
+        calcDisplay.textContent = num;
+    }
+
+    return { body, calcDiv, calcDisplay, buttonDiv, clearDisplay, pushToDisplay }
 })();
 
 /* Button Elements */
 
 const numButtons = (() => {
     let numElementArray = []
+    let displayArray = []
+
     for (i = 0; i < 10; i++) {
         let newButton = elementBuilder('button', 'button', elements.buttonDiv);
         newButton.classList.add(`number`);
         newButton.setAttribute('id', `${i}`);
         newButton.textContent = `${i}`;
+        let num = `${i}`;
         numElementArray.push(newButton);
+        newButton.addEventListener("click", function numEvent() {
+            displayArray.push(num);
+            let newNum = displayArray.join('');
+            elements.pushToDisplay(newNum);
+        });
     };
-    
-    return numElementArray
+
+    return { numElementArray, displayArray }
 })();
 
 const calcButtons = (() => {
@@ -53,124 +94,44 @@ const calcButtons = (() => {
         newButton.classList.add(`calc`);
         newButton.setAttribute('id', `${calcArray[i]}`);
         newButton.textContent = `${calcArray[i]}`;
+        let operator = `${calcArray[i]}`;
         calcElementArray.push(newButton);
+        let newNumDisplay = [];
+        newButton.addEventListener("click", function calcEvent() {
+            let numOne = parseInt(elements.calcDisplay.textContent);
+            elements.pushToDisplay(operator);
+            for (i = 0; i < numButtons.numElementArray.length; i++) {
+                newButton = numButtons.numElementArray[i];
+                let num = newButton.id;
+                newButton.addEventListener("click", function numEvent() {
+                    elements.pushToDisplay(num);
+                    let numTwo = parseInt(elements.calcDisplay.textContent);
+                    newNumDisplay.push(numTwo);
+                    let newNum = newNumDisplay.join('');
+                    elements.pushToDisplay(newNum);
+                    let equalsButton = document.getElementById("=");
+                    equalsButton.addEventListener("click", function calculation() {
+                        let result = calc.operation(operator, numOne, numTwo)
+                        elements.pushToDisplay(result);
+                        numButtons.displayArray = result;
+                        newNumDisplay = [];
+                    });
+
+                });
+
+            }
+
+        });
     };
-    return calcElementArray
+
+    const clearButton = (() => {
+        let button = elementBuilder('button', 'button', elements.buttonDiv);
+        button.textContent = "Clear";
+        button.addEventListener("click", elements.clearDisplay);
+    })();
+
+    return { calcElementArray, calcArray, clearButton }
 })();
-
-let display = [];
-
-const newDisplay = (displayArray, displayElement) => {
-    let newNumber = displayArray[0]
-    displayElement.textContent = newNumber
-
-    for (x = 1; x < displayArray.length; x++) {
-        let numComponent = displayArray[x];
-        newNumber = String(newNumber) + String(numComponent);
-    };
-
-    displayElement.textContent = newNumber;
-    return parseInt(newNumber);
-}
-
-const getNum = (displayArray, displayElement) => {
-    let num = newDisplay(displayArray, displayElement);
-    return num  
-}
-
-const numGetter = (displayArray, numButtonnId, displayElement) => {
-    let number = parseInt(numButtonnId);
-    displayArray.push(number);
-    num = getNum(displayArray, displayElement);
-    return num
-}
-
-const clearDisplay = () => {
-    let display = document.getElementsByClassName("calc-display")[0];
-    display.textContent = 0;
-}
-
-const numberEvent = (displayArray, calculationButtons, displayElement) => {
-    if (!(displayArray.length > 0)) {
-        displayArray.push(0);
-        newDisplay(displayArray, elements.calcDisplay);
-        for (i = 0; i < numButtons.length; i++) {
-            let numButton = numButtons[i];
-            numButton.addEventListener('click', function newNum() {
-                if (displayArray[0] === 0) {
-                    displayArray.splice(0, 1);
-                    let numOne = numGetter(displayArray, numButton.id, displayElement);
-                    getOperator(numOne, calculationButtons, displayElement);
-                } else {
-                    let numOne = numGetter(displayArray, numButton.id, displayElement);
-                    getOperator(numOne, calculationButtons, displayElement);
-                }
-            });
-        }
-    } else {
-        for (i = 0; i < numButtons.length; i++) {
-            let numButton = numButtons[i];
-            numButton.addEventListener('click', function newNum() {
-                let numOne = numGetter(displayArray, numButton.id, displayElement);
-                getOperator(numOne, calculationButtons, displayElement);
-            });
-        }
-    }
-}
-
-const getOperator = (numOne, calculationButtons, displayElement) => {
-    let operatorArray = [numOne]
-    for (i = 0; i < calculationButtons.length - 1; i++) {
-        let operatorElement = calculationButtons[i];
-        let operator = operatorElement.id;
-        operatorElement.addEventListener('click', function getOperator() {
-            displayElement.textContent = operator;
-            operatorArray.push(operator);
-            console.log(operatorArray)
-        }); 
-    }
-}
-
-const operationMatcher = (calculator, operator, numOne, numTwo) => {
-    let resultArray = [];
-    if (operator === `+`) {
-        let newOperation = calculator.add(numOne, numTwo);
-        resultArray.push(newOperation);
-        let result = newDisplay(resultArray);
-        return result
-    };
-
-    if (operator === `x`) {
-        let newOperation = calculator.mult(numOne, numTwo);
-        resultArray.push(newOperation);
-        let result = newDisplay(resultArray);
-        return result
-    };
-
-    if (operator === `-`) {
-        let newOperation = calculator.sub(numOne, numTwo);
-        resultArray.push(newOperation);
-        let result = newDisplay(resultArray);
-        return result
-    };
-
-    if (operator === `/`) {
-        let newOperation = calculator.div(numOne, numTwo);
-        resultArray.push(newOperation);
-        let result = newDisplay(resultArray);
-        return result
-    };
-
-    if (operator === `^`) {
-        let newOperation = calculator.exp(numOne, numTwo);
-        resultArray.push(newOperation);
-        let result = newDisplay(resultArray);
-        return result
-    };
-}
-
-numberEvent(display, calcButtons, elements.calcDisplay);
-
 
 
 
