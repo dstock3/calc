@@ -98,6 +98,7 @@ const calcButtons = (() => {
         calcElementArray.push(newButton);
         let newNumDisplay = [];
         newButton.addEventListener("click", function calcEvent() {
+            numButtons.displayArray = [0];
             let numOne = parseInt(elements.calcDisplay.textContent);
             elements.pushToDisplay(operator);
             for (i = 0; i < numButtons.numElementArray.length; i++) {
@@ -105,16 +106,16 @@ const calcButtons = (() => {
                 let num = newButton.id;
                 newButton.addEventListener("click", function numEvent() {
                     elements.pushToDisplay(num);
-                    let numTwo = parseInt(elements.calcDisplay.textContent);
-                    newNumDisplay.push(numTwo);
-                    let newNum = newNumDisplay.join('');
-                    elements.pushToDisplay(newNum);
+                    let newNum = parseInt(elements.calcDisplay.textContent);
+                    newNumDisplay.push(newNum);
+                    let numTwo = parseInt(newNumDisplay.join(''));
+                    elements.pushToDisplay(numTwo);
                     let equalsButton = document.getElementById("=");
                     equalsButton.addEventListener("click", function calculation() {
+                        newNumDisplay = [];
                         let result = calc.operation(operator, numOne, numTwo)
                         elements.pushToDisplay(result);
                         numButtons.displayArray = result;
-                        newNumDisplay = [];
                     });
 
                 });
