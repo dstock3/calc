@@ -104,10 +104,19 @@ const calcButtons = (() => {
         return newButton
     };
 
+    function equals(operator, numOne, numTwo) {
+        let equalsButton = document.getElementById("=");
+        equalsButton.addEventListener("click", function calculation() {
+            let result = calc.operation(operator, numOne, numTwo)
+            elements.pushToDisplay(result);
+            //numButtons.displayArray = result;
+            return result
+        });
+    }
+
     for (i = 0; i < calcArray.length; i++) {
         let newButton = calcButtonBuilder(calcArray, i);
         let operator = `${calcArray[i]}`;
-        
         newButton.addEventListener("click", function calcEvent() {
             let numOne = parseInt(elements.calcDisplay.textContent);
             elements.pushToDisplay(operator);
@@ -120,16 +129,8 @@ const calcButtons = (() => {
                     newNumDisplay.push(newNum);
                     let numTwo = parseInt(newNumDisplay.join(''));
                     elements.pushToDisplay(numTwo);
-                    let equalsButton = document.getElementById("=");
-                    equalsButton.addEventListener("click", function calculation() {
-                        let result = calc.operation(operator, numOne, numTwo)
-                        elements.pushToDisplay(result);
-                        numButtons.displayArray = result;
-                        newNumDisplay = [];
-                        
+                    let result = equals(operator, numOne, numTwo);
                     });
-
-                });
 
             }
 
