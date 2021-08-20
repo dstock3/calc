@@ -95,8 +95,10 @@ const calcButtons = (() => {
     let calcElementArray = [];
     let newNumDisplay = [];
 
+    const calcElementDiv = elementBuilder("div", "calc-buttons", elements.buttonDiv);
+
     function calcButtonBuilder(newCalcArray, index) {
-        let newButton = elementBuilder('button', 'button', elements.buttonDiv);
+        let newButton = elementBuilder('button', 'button', calcElementDiv);
         newButton.classList.add(`calc`);
         newButton.id = `${newCalcArray[index]}`;
         newButton.textContent = `${newCalcArray[index]}`;
