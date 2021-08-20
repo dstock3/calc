@@ -82,12 +82,25 @@ const numButtons = (() => {
     for (i = 0; i < 10; i++) {
         let newButton = elementBuilder('button', 'button', numButtonDiv);
         newButton.classList.add(`number`);
-        newButton.setAttribute('id', `${i}`);
+        numAssign(newButton, i)
         newButton.textContent = `${i}`;
         let num = `${i}`;
         numElementArray.push(newButton);
         buttonListener(newButton, displayArray, num)
     };
+
+    function numAssign(numButton, i) {
+        if (i === 0) {numButton.id = "zero"};
+        if (i === 1) {numButton.id = "one"};
+        if (i === 2) {numButton.id = "two"};
+        if (i === 3) {numButton.id = "three"};
+        if (i === 4) {numButton.id = "four"};
+        if (i === 5) {numButton.id = "five"};
+        if (i === 6) {numButton.id = "six"};
+        if (i === 7) {numButton.id = "seven"};
+        if (i === 8) {numButton.id = "eight"};
+        if (i === 9) {numButton.id = "nine"};
+    }
 
     return { numElementArray, displayArray }
 })();
