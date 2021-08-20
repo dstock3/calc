@@ -104,4 +104,47 @@ body {
     width: 45%;
 }
 
+#seven {
+    order: 1;
+}
+
+#eight {
+    order: 2;
+}
+
+#nine {
+    order: 3;
+}
+
+#four {
+    order: 4;
+}
+
+#five {
+    order: 5;
+}
+
+#six {
+    order: 6;
+}
+
+#one {
+    order: 7;
+}
+
+#two {
+    order: 8;
+}
+
+#three {
+    order: 9;
+}
+
+#zero {
+    width: 60%;
+    order: 10;
+}
+
+
+
 
