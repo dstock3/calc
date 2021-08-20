@@ -83,6 +83,7 @@ body {
 
 #clear {
     position: relative;
+    font-size: 1.25em;
     width: 100%;
 }
 
@@ -90,9 +91,17 @@ body {
     position: relative;
     height: 85%;
     top: 7%;
-    left: 7%;
+    margin: auto;
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
-    width: 75%;
+    width: 95%;
 }
+
+.num-buttons {
+    display: flex;
+    flex-flow: row wrap;
+    width: 45%;
+}
+
+
