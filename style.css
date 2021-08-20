@@ -12,7 +12,7 @@ body {
     padding: 2%;
     border-radius: 10px;
     max-width: 15%;
-    min-width: 12%;
+    min-width: 250px;
     height: 500px;
     right: 5%;
 }
@@ -88,7 +88,7 @@ body {
     top: 7%;
     margin: auto;
     display: flex;
-    flex-wrap: wrap;
+    flex-flow: row wrap;
     align-items: flex-start;
     width: 95%;
 }
@@ -146,6 +146,7 @@ body {
     left: 15%;
     display: flex;
     flex-flow: row wrap;
+    min-width: 85px;
 }
 
 .calc {
