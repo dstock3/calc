@@ -53,7 +53,7 @@ const elements = (() => {
     const buttonDiv = elementBuilder('div', 'button-div', calcDiv);
 
     const clearDisplay = () => {
-        calcDisplay.textContent = 0;
+        calcDisplay.textContent = "";
     }
 
     const pushToDisplay = (num) => {
@@ -63,16 +63,30 @@ const elements = (() => {
     return { body, calcDiv, calcDisplay, buttonDiv, clearDisplay, pushToDisplay }
 })();
 
+/* Display Controller */
+
+const display = (() => {
+    const array = [];
+
+    const clearArray = () => {
+        array = [];
+        return array;
+    }
+
+    return { array, clearArray }
+})();
+
 /* Button Elements */
 
 const numButtons = (() => {
     let numElementArray = []
-    let displayArray = []
+
+    let displayArray = display.array;
 
     function buttonListener(buttonElement, displayArray, displayContents) {
         buttonElement.addEventListener("click", function numEvent() {
             displayArray.push(displayContents);
-            let newNum = displayArray.join('');
+            let newNum = display.array.join('');
             elements.pushToDisplay(newNum);
         });
     }
@@ -126,7 +140,7 @@ const calcButtons = (() => {
         equalsButton.addEventListener("click", function calculation() {
             let result = calc.operation(operator, numOne, numTwo)
             elements.pushToDisplay(result);
-            //numButtons.displayArray = result;
+            display.Array = result;
             return result
         });
     }
@@ -163,6 +177,8 @@ const calcButtons = (() => {
 
     return { calcElementArray, calcArray, clearButton }
 })();
+
+
 
 
 
