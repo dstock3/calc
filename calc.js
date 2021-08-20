@@ -66,14 +66,21 @@ const elements = (() => {
 /* Display Controller */
 
 const display = (() => {
-    const array = [];
+    let array = [];
 
     const clearArray = () => {
+        elements.clearDisplay();
         array = [];
         return array;
     }
 
-    return { array, clearArray }
+    const addToArray = (displayContents) => {
+        array.push(displayContents);
+        let num = array.join('');
+        return num;
+    }
+
+    return { array, clearArray, addToArray }
 })();
 
 /* Button Elements */
@@ -85,8 +92,8 @@ const numButtons = (() => {
 
     function buttonListener(buttonElement, displayArray, displayContents) {
         buttonElement.addEventListener("click", function numEvent() {
-            displayArray.push(displayContents);
-            let newNum = display.array.join('');
+            
+            let newNum = display.addToArray(displayContents);
             elements.pushToDisplay(newNum);
         });
     }
@@ -172,7 +179,7 @@ const calcButtons = (() => {
         let button = elementBuilder('button', 'button', elements.buttonDiv);
         button.id = "clear";
         button.textContent = "Clear";
-        button.addEventListener("click", elements.clearDisplay);
+        button.addEventListener("click", display.clearArray);
     })();
 
     return { calcElementArray, calcArray, clearButton }
