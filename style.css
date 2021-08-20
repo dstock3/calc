@@ -19,7 +19,7 @@ body {
 
 .calc-bkg {
     max-width: 20%;
-    min-width: 15%;
+    min-width: 285px;
     height: 500px;
     border-radius: 10px;
     background: white;
