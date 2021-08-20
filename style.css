@@ -97,6 +97,7 @@ body {
     display: flex;
     flex-flow: row wrap;
     width: 45%;
+    min-width: 125px;
 }
 
 #seven {
