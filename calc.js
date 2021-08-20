@@ -141,6 +141,7 @@ const calcButtons = (() => {
 
     const clearButton = (() => {
         let button = elementBuilder('button', 'button', elements.buttonDiv);
+        button.id = "clear";
         button.textContent = "Clear";
         button.addEventListener("click", elements.clearDisplay);
     })();
