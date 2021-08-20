@@ -60,6 +60,7 @@ body {
 }
 
 .button {
+    height: 12%;
     background-color: black;
     color: white;
     border: 1px solid white;
@@ -67,7 +68,7 @@ body {
 }
 
 .button:hover {
-    background-color: #121212;
+    background-color: #161616;
 }
 
 .number {
@@ -80,11 +81,18 @@ body {
     padding: 5px;
 }
 
+#clear {
+    position: relative;
+    width: 100%;
+}
+
 .button-div {
     position: relative;
+    height: 85%;
     top: 7%;
     left: 7%;
     display: flex;
     flex-wrap: wrap;
+    align-items: flex-start;
     width: 75%;
 }

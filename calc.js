@@ -77,8 +77,10 @@ const numButtons = (() => {
         });
     }
 
+    const numButtonDiv = elementBuilder("div", "num-buttons", elements.buttonDiv);
+
     for (i = 0; i < 10; i++) {
-        let newButton = elementBuilder('button', 'button', elements.buttonDiv);
+        let newButton = elementBuilder('button', 'button', numButtonDiv);
         newButton.classList.add(`number`);
         newButton.setAttribute('id', `${i}`);
         newButton.textContent = `${i}`;
