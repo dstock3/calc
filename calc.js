@@ -100,7 +100,7 @@ const numButtons = (() => {
         if (i === 7) {numButton.id = "seven"};
         if (i === 8) {numButton.id = "eight"};
         if (i === 9) {numButton.id = "nine"};
-    }
+    };
 
     return { numElementArray, displayArray }
 })();

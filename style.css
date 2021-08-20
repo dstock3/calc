@@ -76,11 +76,6 @@ body {
     padding: 10px;
 }
 
-.calc {
-    font-size: 1.25em;
-    padding: 5px;
-}
-
 #clear {
     position: relative;
     font-size: 1.25em;
@@ -145,6 +140,17 @@ body {
     order: 10;
 }
 
+.calc-buttons {
+    position: relative;
+    left: 15%;
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.calc {
+    padding: 15%;
+    font-size: 1.50em;
+}
 
 
 
