@@ -142,7 +142,6 @@ const calcButtons = (() => {
 
     addListener(firstSet);
 
-
     const calcArray = ['+', '-', 'x', '/', '^', `=`];
     let calcElementArray = [];
     let displayArray = display.array;
@@ -176,25 +175,29 @@ const calcButtons = (() => {
             let numOne = parseInt(elements.calcDisplay.textContent);
             display.clearArray();
             elements.pushToDisplay(operator);
+            
             removeChildren(elements.numButtonDiv)
             let secondSet = numButtons()
+            addListener(secondSet)
+
+            /*
             let numTwo = parseInt(elements.calcDisplay.textContent);
             console.log(operator, numOne, numTwo)
             let result = equals(operator, numOne, numTwo)
-            display.addToArray(result);
+            display.addToArray(result); */
 
             
         }); 
     };
 
-    const clearButton = (() => {
-        let button = elementBuilder('button', 'button', elements.buttonDiv);
-        button.id = "clear";
-        button.textContent = "Clear";
-        button.addEventListener("click", display.clearArray);
-    })();
-
     return { calcElementArray }
+})();
+
+const clearButton = (() => {
+    let button = elementBuilder('button', 'button', elements.buttonDiv);
+    button.id = "clear";
+    button.textContent = "Clear";
+    button.addEventListener("click", display.clearArray);
 })();
 
 
