@@ -7,6 +7,12 @@ function elementBuilder(element, classLabel, parentName) {
     return item;
 }
 
+function removeChildren(parent) {
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
+}
+
 /* Calculation functions */
 
 const calc = (() => {
@@ -51,6 +57,7 @@ const elements = (() => {
     const calcDisplay = elementBuilder('div', 'calc-display', displayDiv);
     const calcDisplayBkg = elementBuilder('div', 'display-bkg', displayDiv);
     const buttonDiv = elementBuilder('div', 'button-div', calcDiv);
+    const numButtonDiv = elementBuilder("div", "num-buttons", buttonDiv);
 
     const clearDisplay = () => {
         calcDisplay.textContent = "";
@@ -60,7 +67,7 @@ const elements = (() => {
         calcDisplay.textContent = num;
     }
 
-    return { body, calcDiv, calcDisplay, buttonDiv, clearDisplay, pushToDisplay }
+    return { body, calcDiv, calcDisplay, buttonDiv, numButtonDiv, clearDisplay, pushToDisplay }
 })();
 
 /* Display Controller */
@@ -86,21 +93,19 @@ const display = (() => {
 
 /* Button Elements */
 
-const numButtons = (() => {
+const numButtons = () => {
     let numElementArray = []
 
     let displayArray = display.array;
 
     function buttonListener(buttonElement, displayContents) {
         buttonElement.addEventListener("click", function numEvent() {
-            let newNum = display.addToArray(displayContents);
+            display.addToArray(displayContents);
         });
     }
 
-    const numButtonDiv = elementBuilder("div", "num-buttons", elements.buttonDiv);
-
     for (i = 0; i < 10; i++) {
-        let newButton = elementBuilder('button', 'button', numButtonDiv);
+        let newButton = elementBuilder('button', 'button', elements.numButtonDiv);
         newButton.classList.add(`number`);
         numAssign(newButton, i)
         newButton.textContent = `${i}`;
@@ -122,10 +127,11 @@ const numButtons = (() => {
         if (i === 9) {numButton.id = "nine"};
     };
 
-    return { numElementArray, displayArray, buttonListener }
-})();
+    return { numElementArray, displayArray }
+};
 
 const calcButtons = (() => {
+    let firstSet = numButtons()
     const calcArray = ['+', '-', 'x', '/', '^', `=`];
     let calcElementArray = [];
     let displayArray = display.array;
@@ -147,9 +153,12 @@ const calcButtons = (() => {
             let result = calc.operation(operator, numOne, numTwo)
             elements.pushToDisplay(result);
             display.Array = result;
+            
             return result
         });
     }
+
+
 
     for (i = 0; i < calcArray.length; i++) {
         let newButton = calcButtonBuilder(calcArray, i);
@@ -158,19 +167,14 @@ const calcButtons = (() => {
             let numOne = parseInt(elements.calcDisplay.textContent);
             display.clearArray();
             elements.pushToDisplay(operator);
-            console.log(numOne, operator)
+            removeChildren(elements.numButtonDiv)
+            let secondSet = numButtons()
+            let numTwo = parseInt(elements.calcDisplay.textContent);
+            console.log(operator, numOne, numTwo)
+            let result = equals(operator, numOne, numTwo)
+            display.addToArray(result);
 
-            /* Need to figure out a way to do this without adding another eventListener
-            for (i = 0; i < numButtons.numElementArray.length; i++) {
-                newButton = numButtons.numElementArray[i];
-                let num = i;
-                numButtons.buttonListener(newButton, num)
-                let numTwoElement = document.getElementsByClassName("calc-display")[0];
-                let numTwo = parseInt(numTwoElement.textContent);
-                let result = equals(operator, numOne, numTwo)
-                display.addToArray(result);
-            } */
-
+            
         }); 
     };
 
@@ -181,7 +185,7 @@ const calcButtons = (() => {
         button.addEventListener("click", display.clearArray);
     })();
 
-    return { calcElementArray, calcArray, clearButton }
+    return { calcElementArray }
 })();
 
 
