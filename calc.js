@@ -175,22 +175,18 @@ const calcButtons = (() => {
             let numOne = parseInt(elements.calcDisplay.textContent);
             display.clearArray();
             elements.pushToDisplay(operator);
-            
             removeChildren(elements.numButtonDiv)
             let secondSet = numButtons()
             addListener(secondSet)
-
-            /*
             let numTwo = parseInt(elements.calcDisplay.textContent);
-            console.log(operator, numOne, numTwo)
-            let result = equals(operator, numOne, numTwo)
-            display.addToArray(result); */
-
-            
+            console.log("MAYBEE")
+            if (!(isNaN(numTwo))) {
+                console.log(numTwo)
+                let result = equals(operator, numOne, numTwo);
+                //display.addToArray(result);
+            }
         }); 
     };
-
-    return { calcElementArray }
 })();
 
 const clearButton = (() => {
