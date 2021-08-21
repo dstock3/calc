@@ -132,19 +132,32 @@ const numButtons = () => {
 const calcButtons = (() => {
     let firstSet = numButtons()
 
+    const calcArray = ['+', '-', 'x', '/', '^', `=`];
+    let calcElementArray = [];
+    let displayArray = display.array;
+
     const addListener = (newSet) => {
-        for (i = 0; i < newSet.numElementArray.length; i++) {
-            let newButton = newSet.numElementArray[i];
-            let num = newButton.textContent
-            newSet.buttonListener(newButton, num)
+        for (i = 0; i < calcArray.length; i++) {
+            if (elements.calcDisplay.textContent === calcArray[i]) {
+                for (i = 0; i < newSet.numElementArray.length; i++) {
+                    let newButton = newSet.numElementArray[i];
+                    let num = newButton.textContent
+                    newSet.buttonListener(newButton, num)
+                    let numTwo = parseInt(elements.calcDisplay.textContent);
+                    return numTwo
+
+                }
+            } else {
+                for (i = 0; i < newSet.numElementArray.length; i++) {
+                    let newButton = newSet.numElementArray[i];
+                    let num = newButton.textContent
+                    newSet.buttonListener(newButton, num)
+                }
+            }
         }
     }
 
     addListener(firstSet);
-
-    const calcArray = ['+', '-', 'x', '/', '^', `=`];
-    let calcElementArray = [];
-    let displayArray = display.array;
 
     const calcElementDiv = elementBuilder("div", "calc-buttons", elements.buttonDiv);
 
@@ -177,14 +190,11 @@ const calcButtons = (() => {
             elements.pushToDisplay(operator);
             removeChildren(elements.numButtonDiv)
             let secondSet = numButtons()
-            addListener(secondSet)
-            let numTwo = parseInt(elements.calcDisplay.textContent);
-            console.log("MAYBEE")
-            if (!(isNaN(numTwo))) {
-                console.log(numTwo)
-                let result = equals(operator, numOne, numTwo);
+            let numTwo = addListener(secondSet)
+            let result = equals(operator, numOne, numTwo);
+
                 //display.addToArray(result);
-            }
+
         }); 
     };
 })();
