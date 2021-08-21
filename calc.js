@@ -111,7 +111,6 @@ const numButtons = () => {
         newButton.textContent = `${i}`;
         let num = `${i}`;
         numElementArray.push(newButton);
-        buttonListener(newButton, num)
     };
 
     function numAssign(numButton, i) {
@@ -127,11 +126,23 @@ const numButtons = () => {
         if (i === 9) {numButton.id = "nine"};
     };
 
-    return { numElementArray, displayArray }
+    return { numElementArray, displayArray, buttonListener }
 };
 
 const calcButtons = (() => {
     let firstSet = numButtons()
+
+    const addListener = (newSet) => {
+        for (i = 0; i < newSet.numElementArray.length; i++) {
+            let newButton = newSet.numElementArray[i];
+            let num = newButton.textContent
+            newSet.buttonListener(newButton, num)
+        }
+    }
+
+    addListener(firstSet);
+
+
     const calcArray = ['+', '-', 'x', '/', '^', `=`];
     let calcElementArray = [];
     let displayArray = display.array;
@@ -157,8 +168,6 @@ const calcButtons = (() => {
             return result
         });
     }
-
-
 
     for (i = 0; i < calcArray.length; i++) {
         let newButton = calcButtonBuilder(calcArray, i);
