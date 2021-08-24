@@ -173,8 +173,7 @@ const calcButtons = (() => {
             newButton.addEventListener("click", function operation() {
                 display.addToArray(num);
                 equals(operator, numOne);
-            })
-            
+            });
         }
     }
 
@@ -184,16 +183,11 @@ const calcButtons = (() => {
         newButton.addEventListener("click", function calcEvent() {
             let numOne = parseInt(elements.calcDisplay.textContent);
             display.clearArray();
-            if (operator === "=") {
-                removeChildren(elements.numButtonDiv)
-                let secondSet = numButtons()
-                secondNum(secondSet, numOne, operator)
-            } else {
-                elements.pushToDisplay(operator);
-                removeChildren(elements.numButtonDiv)
-                let secondSet = numButtons()
-                secondNum(secondSet, numOne, operator)
-            }
+            elements.pushToDisplay(operator);
+            removeChildren(elements.numButtonDiv)
+            let secondSet = numButtons()
+            secondNum(secondSet, numOne, operator)
+
         }); 
     };
 })();
