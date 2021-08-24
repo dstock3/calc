@@ -168,10 +168,15 @@ const calcButtons = (() => {
         let calcButtons = document.getElementsByClassName("calc");
         for (i = 0; i < calcButtons.length -1; i++) {
             let newOpButton = calcButtons[i];
+            let numTwo = parseInt(elements.calcDisplay.textContent);
             newOpButton.addEventListener("click", function newOp() {
-                let numTwo = parseInt(elements.calcDisplay.textContent);
                 let result = calc.operation(operator, numOne, numTwo)
                 elements.pushToDisplay(result);
+                numOne = parseInt(result);
+                operator = newOpButton.textContent
+                removeChildren(elements.numButtonDiv)
+                let thirdSet = numButtons()
+                secondNum(thirdSet, numOne, operator)
             });
         }
     }
