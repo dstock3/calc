@@ -157,24 +157,24 @@ const calcButtons = (() => {
         return newButton
     };
 
-    function equals(operator, numOne, numTwo) {
+    function equals(operator, numOne) {
+        let numTwo = parseInt(elements.calcDisplay.textContent);
         let equalsButton = document.getElementById("=");
         equalsButton.addEventListener("click", function calculation() {
             let result = calc.operation(operator, numOne, numTwo)
             elements.pushToDisplay(result);
-            return result
         });
     }
 
     const secondNum = (newSet, numOne, operator) => {
         for (i = 0; i < newSet.numElementArray.length; i++) {
             let newButton = newSet.numElementArray[i];
-            let num = newButton.textContent
+            let num = newButton.textContent;
             newButton.addEventListener("click", function operation() {
-                elements.pushToDisplay(num);
-                let numTwo = parseInt(elements.calcDisplay.textContent);
-                equals(operator, numOne, numTwo);
+                display.addToArray(num);
+                equals(operator, numOne);
             })
+            
         }
     }
 
@@ -184,10 +184,16 @@ const calcButtons = (() => {
         newButton.addEventListener("click", function calcEvent() {
             let numOne = parseInt(elements.calcDisplay.textContent);
             display.clearArray();
-            elements.pushToDisplay(operator);
-            removeChildren(elements.numButtonDiv)
-            let secondSet = numButtons()
-            secondNum(secondSet, numOne, operator)
+            if (operator === "=") {
+                removeChildren(elements.numButtonDiv)
+                let secondSet = numButtons()
+                secondNum(secondSet, numOne, operator)
+            } else {
+                elements.pushToDisplay(operator);
+                removeChildren(elements.numButtonDiv)
+                let secondSet = numButtons()
+                secondNum(secondSet, numOne, operator)
+            }
         }); 
     };
 })();
