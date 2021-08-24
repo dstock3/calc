@@ -94,8 +94,6 @@ const display = (() => {
 /* Button Elements */
 
 const numButtons = () => {
-    let numElementArray = []
-
     let displayArray = display.array;
 
     function buttonListener(buttonElement, displayContents) {
@@ -103,6 +101,8 @@ const numButtons = () => {
             display.addToArray(displayContents);
         });
     }
+
+    let numElementArray = []
 
     for (i = 0; i < 10; i++) {
         let newButton = elementBuilder('button', 'button', elements.numButtonDiv);
@@ -130,12 +130,7 @@ const numButtons = () => {
 };
 
 const calcButtons = (() => {
-    let firstSet = numButtons()
-
-    const calcArray = ['+', '-', 'x', '/', '^', `=`];
-    let calcElementArray = [];
-    let displayArray = display.array;
-
+    
     const addListener = (newSet) => {
         for (i = 0; i < newSet.numElementArray.length; i++) {
             let newButton = newSet.numElementArray[i];
@@ -144,7 +139,12 @@ const calcButtons = (() => {
             }
     }
 
+    let firstSet = numButtons()
     addListener(firstSet);
+
+    const calcArray = ['+', '-', 'x', '/', '^', `=`];
+    let calcElementArray = [];
+    let displayArray = display.array;
 
     const calcElementDiv = elementBuilder("div", "calc-buttons", elements.buttonDiv);
 
@@ -176,12 +176,19 @@ const calcButtons = (() => {
         }  */
     }
 
+    const multOperation = () => {
+        let calcButtons = document.getElementsByClassName("calc");
+        console.log(calcButtons)
+
+    }
+
     const secondNum = (newSet, numOne, operator) => {
         for (i = 0; i < newSet.numElementArray.length; i++) {
             let newButton = newSet.numElementArray[i];
             let num = newButton.textContent;
             newButton.addEventListener("click", function operation() {
                 display.addToArray(num);
+                multOperation(operator, numOne);
                 equals(operator, numOne);
             });
         }
