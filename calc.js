@@ -137,24 +137,11 @@ const calcButtons = (() => {
     let displayArray = display.array;
 
     const addListener = (newSet) => {
-        for (i = 0; i < calcArray.length; i++) {
-            if (elements.calcDisplay.textContent === calcArray[i]) {
-                for (i = 0; i < newSet.numElementArray.length; i++) {
-                    let newButton = newSet.numElementArray[i];
-                    let num = newButton.textContent
-                    newSet.buttonListener(newButton, num)
-                    let numTwo = parseInt(elements.calcDisplay.textContent);
-                    return numTwo
-
-                }
-            } else {
-                for (i = 0; i < newSet.numElementArray.length; i++) {
-                    let newButton = newSet.numElementArray[i];
-                    let num = newButton.textContent
-                    newSet.buttonListener(newButton, num)
-                }
+        for (i = 0; i < newSet.numElementArray.length; i++) {
+            let newButton = newSet.numElementArray[i];
+            let num = newButton.textContent
+            newSet.buttonListener(newButton, num)
             }
-        }
     }
 
     addListener(firstSet);
@@ -175,10 +162,20 @@ const calcButtons = (() => {
         equalsButton.addEventListener("click", function calculation() {
             let result = calc.operation(operator, numOne, numTwo)
             elements.pushToDisplay(result);
-            display.Array = result;
-            
             return result
         });
+    }
+
+    const secondNum = (newSet, numOne, operator) => {
+        for (i = 0; i < newSet.numElementArray.length; i++) {
+            let newButton = newSet.numElementArray[i];
+            let num = newButton.textContent
+            newButton.addEventListener("click", function operation() {
+                elements.pushToDisplay(num);
+                let numTwo = parseInt(elements.calcDisplay.textContent);
+                equals(operator, numOne, numTwo);
+            })
+        }
     }
 
     for (i = 0; i < calcArray.length; i++) {
@@ -190,11 +187,7 @@ const calcButtons = (() => {
             elements.pushToDisplay(operator);
             removeChildren(elements.numButtonDiv)
             let secondSet = numButtons()
-            let numTwo = addListener(secondSet)
-            let result = equals(operator, numOne, numTwo);
-
-                //display.addToArray(result);
-
+            secondNum(secondSet, numOne, operator)
         }); 
     };
 })();
