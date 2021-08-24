@@ -164,17 +164,16 @@ const calcButtons = (() => {
             let result = calc.operation(operator, numOne, numTwo)
             elements.pushToDisplay(result);
         });
-        /* Need to account for several operators
-        for (i = 0; i < calcArray.length -1; i++) {
-            let secondOperator = calcArray[i];
-            let operationButton = document.getElementById(secondOperator);
+
+        /* need to account for multiple operations 
+        calcButtons = document.getElementsByClassName("calc");
+        for (i = 0; i < calcButtons.length -1; i++) {
+            let operationButton = calcButtons[i];
             operationButton.addEventListener("click", function calculation() {
                 let result = calc.operation(operator, numOne, numTwo)
                 elements.pushToDisplay(result);
             });
-            
-
-        } */
+        }  */
     }
 
     const secondNum = (newSet, numOne, operator) => {
