@@ -165,30 +165,22 @@ const calcButtons = (() => {
             elements.pushToDisplay(result);
         });
 
-        /* need to account for multiple operations 
-        calcButtons = document.getElementsByClassName("calc");
+        let calcButtons = document.getElementsByClassName("calc");
         for (i = 0; i < calcButtons.length -1; i++) {
-            let operationButton = calcButtons[i];
-            operationButton.addEventListener("click", function calculation() {
+            let newOpButton = calcButtons[i];
+            newOpButton.addEventListener("click", function newOp() {
+                let numTwo = parseInt(elements.calcDisplay.textContent);
                 let result = calc.operation(operator, numOne, numTwo)
                 elements.pushToDisplay(result);
             });
-        }  */
+        }
     }
-
-    const multOperation = () => {
-        let calcButtons = document.getElementsByClassName("calc");
-        console.log(calcButtons)
-
-    }
-
     const secondNum = (newSet, numOne, operator) => {
         for (i = 0; i < newSet.numElementArray.length; i++) {
             let newButton = newSet.numElementArray[i];
             let num = newButton.textContent;
             newButton.addEventListener("click", function operation() {
                 display.addToArray(num);
-                multOperation(operator, numOne);
                 equals(operator, numOne);
             });
         }
