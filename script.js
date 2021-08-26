@@ -161,7 +161,9 @@ const calcLogic = (() => {
                 let result = calc.operation(operator, numOne, numTwo)
                 display.pushToDisplay(result);
                 operator = newOpButton.textContent;
-                operate();
+                let newNumSet = numButtons()
+                secondNum(newNumSet, result, operator);
+
             });
         }
         let equalsButton = document.getElementById("=");
