@@ -149,7 +149,7 @@ const calcLogic = (() => {
             let newButton = newSet.elementArray[i];
             let num = newButton.textContent
             buttonListener(newButton, num)
-            }
+            };
     }
 
     function equals(operator, numOne) {
@@ -166,7 +166,14 @@ const calcLogic = (() => {
                 secondNum(newNumSet, result, operator);
             });
         }
-        equalEvent(operator, numOne, numTwo);
+        let equalsButton = document.getElementById("=");
+        equalsButton.addEventListener("click", function calculation() {
+            let result = calc.operation(operator, numOne, numTwo);
+            display.clearArray();
+            display.pushToDisplay(result);
+            let newCalcSet = calcButtons()
+            getOperator(newCalcSet);
+        });
     }
 
     const secondNum = (newSet, numOne, operator) => {
@@ -194,24 +201,19 @@ const calcLogic = (() => {
         }
     }
 
-    function equalEvent(operator, numOne, numTwo) {
+    function operate() {
+        let numSet = numButtons();
+        let calcSet = calcButtons();
+        addListener(numSet);
+        getOperator(calcSet);
         let equalsButton = document.getElementById("=");
         equalsButton.addEventListener("click", function calculation() {
-            let result = calc.operation(operator, numOne, numTwo);
+            let result = elements.calcDisplay.textContent
             display.clearArray();
             display.pushToDisplay(result);
             let newCalcSet = calcButtons()
             getOperator(newCalcSet);
         });
-    }
-
-    function operate() {
-        let numSet = numButtons()
-        let calcSet = calcButtons()
-        addListener(numSet);
-        getOperator(calcSet)
-        let num = parseInt(element.calcDisplay.textContent)
-        equalEvent("+", num, 0)
     }
 
     let clear = clearButton()
