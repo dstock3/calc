@@ -153,23 +153,26 @@ const calcLogic = (() => {
     }
 
     function equals(operator, numOne) {
-        let opButtons = document.getElementsByClassName("calc");
+        let newCalcSet = calcButtons()
         let numTwo = parseInt(elements.calcDisplay.textContent);
-        for (i = 0; i < opButtons.length -1; i++) {
-            let newOpButton = opButtons[i];
+        for (i = 0; i < newCalcSet.elementArray.length -1; i++) {
+            let newOpButton = newCalcSet.elementArray[i];
             newOpButton.addEventListener("click", function newOp() {
-                let result = calc.operation(operator, numOne, numTwo)
+                display.clearArray();
+                let result = calc.operation(operator, numOne, numTwo);
                 display.pushToDisplay(result);
                 operator = newOpButton.textContent;
                 let newNumSet = numButtons()
                 secondNum(newNumSet, result, operator);
-
             });
         }
         let equalsButton = document.getElementById("=");
         equalsButton.addEventListener("click", function calculation() {
-            let result = calc.operation(operator, numOne, numTwo)
+            let result = calc.operation(operator, numOne, numTwo);
+            display.clearArray();
             display.pushToDisplay(result);
+            let newCalcSet = calcButtons()
+            getOperator(newCalcSet);
         });
     }
 
@@ -181,14 +184,10 @@ const calcLogic = (() => {
                 display.addToArray(num);
                 equals(operator, numOne);
             });
-        }
+        };
     }
 
-    function operate() {
-        let numSet = numButtons()
-        let calcSet = calcButtons()
-        
-        addListener(numSet);
+    function getOperator(calcSet) {
         for (i = 0; i < calcSet.operators.length; i++) {
             let operator = calcSet.operators[i];
             let newButton = calcSet.elementArray[i];
@@ -200,6 +199,14 @@ const calcLogic = (() => {
                 secondNum(newNumSet, numOne, operator);
             }); 
         }
+    }
+
+    function operate() {
+        let numSet = numButtons()
+        let calcSet = calcButtons()
+        addListener(numSet);
+        getOperator(calcSet)
+
     }
 
     let clear = clearButton()
