@@ -79,7 +79,7 @@ const calcButtons = () => {
 const display = (() => {
     let array = [];
 
-    const clearDisplay = () => {
+    const clear = () => {
         elements.calcDisplay.textContent = "";
     }
 
@@ -88,7 +88,7 @@ const display = (() => {
     }
 
     const clearArray = () => {
-        clearDisplay();
+        clear();
         array = [];
         return array;
     }
@@ -100,15 +100,8 @@ const display = (() => {
         return num
     }
 
-    return { array, clearArray, addToArray, pushToDisplay }
+    return { array, clearArray, addToArray, pushToDisplay, clear }
 })();
-
-const clearButton = () => {
-    let button = elementBuilder('button', 'button', elements.buttonDiv);
-    button.id = "clear";
-    button.textContent = "Clear";
-    button.addEventListener("click", display.clearArray);
-};
 
 const calc = (() => {
     const add = (x, y) => x + y;
@@ -199,7 +192,6 @@ const calcLogic = (() => {
             let newButton = calcSet.elementArray[i];
             newButton.addEventListener("click", function calcEvent() {
                 let numOne = parseFloat(elements.calcDisplay.textContent);
-                console.log(numOne)
                 display.clearArray();
                 display.pushToDisplay(operator);
                 let newNumSet = numButtons()
@@ -223,7 +215,17 @@ const calcLogic = (() => {
         });
     }
 
-    let clear = clearButton()
+    const clearButton = (() => {
+        let button = elementBuilder('button', 'button', elements.buttonDiv);
+        button.id = "clear";
+        button.textContent = "Clear";
+
+        function clearAll() {
+            display.clear()
+            operate()
+        }
+        button.addEventListener("click", clearAll);
+    })();
 
     operate()
 })();
