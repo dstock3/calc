@@ -175,8 +175,9 @@ const calcLogic = (() => {
         equalsButton.addEventListener("click", function calculation() {
             let result = calc.operation(operator, numOne, numTwo);
             displayObj.pushToDisplay(result);
-            displayObj.clearArray()
-            /*need to account for scenerio where a new number is entered here.*/
+            displayObj.clearArray();
+            let newNumSet = numButtons();
+            addListener(newNumSet, displayObj);
             let newCalcSet = calcButtons()
             getOperator(newCalcSet, displayObj);
         });
