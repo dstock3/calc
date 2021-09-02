@@ -163,14 +163,43 @@ body {
 
 @media only screen and (max-width: 600px) {
     .calc-div {
-        right: 100%;
-        min-width: 98%;
-        min-height: 500px;
+        right: 95%;
+        min-width: 90%;
+        min-height: 550px;
     }
 
     .calc-bkg {
         left: 0;
-        min-width: 100%;
-        min-height: 500px;
+        min-width: 92%;
+        min-height: 550px;
+    }
+
+    .display-div {
+        position: relative;
+        margin: auto;
+        top: 3%;
+        height: 6.5%;
+        width: 90%;
+    }
+    
+    .calc-display {
+        height: 100%;
+    }
+    
+    .display-bkg {
+        height: 170%;
+        bottom: 160%;
+        right: 2%;
+    }
+
+    .button-div {
+        width: 90%;
+        top: 15%;
+        justify-content: space-around;
+    }
+
+    .calc-buttons {
+        left: 0;
+
     }
 }
