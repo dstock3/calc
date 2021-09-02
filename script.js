@@ -38,6 +38,12 @@ const numButtons = () => {
         elementArray.push(newButton);
     };
 
+    const decimal = elementBuilder("button", "button", elements.numButtonDiv);
+    decimal.classList.add(`number`);
+    decimal.textContent = `.`;
+    decimal.id = "decimal"
+    elementArray.push(decimal);
+
     function numAssign(numButton, i) {
         if (i === 0) {numButton.id = "zero"};
         if (i === 1) {numButton.id = "one"};
