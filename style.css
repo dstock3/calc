@@ -31,7 +31,7 @@ body {
 
 .display-div {
     flex-flow: column;
-    height: 50px;
+    height: 10%;
 }
 
 .calc-display {
@@ -39,7 +39,7 @@ body {
     color: white;
     background-color: black;
     position: relative;
-    height: 25px;
+    height: 70%;
     border: 1px solid white;
     border-radius: 8px;
     padding: 10px;
@@ -51,11 +51,11 @@ body {
 .display-bkg {
     position: relative;
     background-color: white;
-    height: 50px;
+    height: 125%;
     border-radius: 8px;
     opacity: 0.85;
-    bottom: 100%;
-    right: 2.75%;
+    bottom: 130%;
+    right: 2.5%;
     z-index: 1;
 }
 
@@ -159,4 +159,18 @@ body {
     padding: 10%;
     width: 45%;
     font-size: 1.50em;
+}
+
+@media only screen and (max-width: 600px) {
+    .calc-div {
+        right: 100%;
+        min-width: 98%;
+        min-height: 500px;
+    }
+
+    .calc-bkg {
+        left: 0;
+        min-width: 100%;
+        min-height: 500px;
+    }
 }
