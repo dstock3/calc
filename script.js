@@ -160,7 +160,7 @@ const calcLogic = (() => {
 
     function equals(operator, numOne) {
         let newCalcSet = calcButtons()
-        let numTwo = parseInt(elements.calcDisplay.textContent);
+        let numTwo = parseFloat(elements.calcDisplay.textContent);
         for (i = 0; i < newCalcSet.elementArray.length -1; i++) {
             let newOpButton = newCalcSet.elementArray[i];
             newOpButton.addEventListener("click", function newOp() {
@@ -198,7 +198,8 @@ const calcLogic = (() => {
             let operator = calcSet.operators[i];
             let newButton = calcSet.elementArray[i];
             newButton.addEventListener("click", function calcEvent() {
-                let numOne = parseInt(elements.calcDisplay.textContent);
+                let numOne = parseFloat(elements.calcDisplay.textContent);
+                console.log(numOne)
                 display.clearArray();
                 display.pushToDisplay(operator);
                 let newNumSet = numButtons()
