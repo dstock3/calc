@@ -139,7 +139,7 @@ const clearButton = (() => {
 const backSpace = (() => {
     let button = elementBuilder('button', 'button', elements.buttonDiv);
     button.id = "backspace";
-    button.textContent = "Backspace";
+    button.textContent = "<--";
     
 })();
 
