@@ -32,7 +32,7 @@ const numButtons = () => {
     for (i = 0; i < 10; i++) {
         let newButton = elementBuilder('button', 'button', elements.numButtonDiv);
         newButton.classList.add(`number`);
-        numAssign(newButton, i)
+        numAssign(newButton, i);
         newButton.textContent = `${i}`;
         let num = `${i}`;
         elementArray.push(newButton);
@@ -127,7 +127,21 @@ const display = () => {
         }
     }
 
-    return { array, clearArray, addToArray, pushToDisplay, clear, backSpace }
+    const plusMinusSwitch = () => {
+        if (array[0] === "-") {
+            array.shift(array[0])
+            let num = array.join('');
+            pushToDisplay(num);
+            return num
+        } else {
+            array.unshift("-");
+            let num = array.join('');
+            pushToDisplay(num);
+            return num
+        }
+    }
+
+    return { array, clearArray, addToArray, pushToDisplay, clear, backSpace, plusMinusSwitch }
 };
 
 const clearButton = (() => {
@@ -140,7 +154,12 @@ const backSpace = (() => {
     let button = elementBuilder('button', 'button', elements.buttonDiv);
     button.id = "backspace";
     button.textContent = "<--";
-    
+})();
+
+const negative = (() => {
+    let button = elementBuilder('button', 'button', elements.buttonDiv);
+    button.id = "negative";
+    button.textContent = "+/-";
 })();
 
 const calc = (() => {
@@ -193,10 +212,10 @@ const calcLogic = (() => {
 
     function equals(operator, numOne, displayObj) {
         let newCalcSet = calcButtons()
-        let numTwo = parseFloat(elements.calcDisplay.textContent);
         for (i = 0; i < newCalcSet.elementArray.length -1; i++) {
             let newOpButton = newCalcSet.elementArray[i];
             newOpButton.addEventListener("click", function newOp() {
+                let numTwo = parseFloat(elements.calcDisplay.textContent);
                 displayObj.clearArray();
                 let result = calc.operation(operator, numOne, numTwo);
                 displayObj.pushToDisplay(result);
@@ -204,8 +223,9 @@ const calcLogic = (() => {
                 let newNumSet = numButtons()
                 secondNum(newNumSet, result, operator, displayObj);
             });
-        }
+        };
         let equalsButton = document.getElementById("=");
+        let numTwo = parseFloat(elements.calcDisplay.textContent);
         equalsButton.addEventListener("click", function calculation() {
             let result = calc.operation(operator, numOne, numTwo);
             displayObj.pushToDisplay(result);
@@ -221,6 +241,7 @@ const calcLogic = (() => {
         for (i = 0; i < newSet.elementArray.length; i++) {
             let newButton = newSet.elementArray[i];
             let num = newButton.textContent;
+            backSpaceEvent(displayObj);
             newButton.addEventListener("click", function operation() {
                 displayObj.addToArray(num);
                 equals(operator, numOne, displayObj);
@@ -244,9 +265,9 @@ const calcLogic = (() => {
 
     function operate() {
         let newdisplay = display()
-        let backSpace = document.getElementById("backspace")
-        backSpace.addEventListener("click", newdisplay.backSpace);
         clearEvent(newdisplay);
+        backSpaceEvent(newdisplay)
+        plusMinus(newdisplay)
         let numSet = numButtons();
         let calcSet = calcButtons();
         addListener(numSet, newdisplay);
@@ -271,6 +292,15 @@ const calcLogic = (() => {
         button.addEventListener("click", clearAll);
     };
 
+    const backSpaceEvent = (displayObj) => {
+        let backSpace = document.getElementById("backspace");
+        backSpace.addEventListener("click", displayObj.backSpace);
+    }
+
+    const plusMinus = (displayObj) => {
+        let switchButton = document.getElementById("negative");
+        switchButton.addEventListener("click", displayObj.plusMinusSwitch)
+    }
 
     operate()
 })();
