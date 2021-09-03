@@ -218,7 +218,13 @@ body {
     }
 
     #backspace {
-        left: 30%;
+        left: 45%;
+        bottom: 45%;
+    }
+    
+    #negative {
+        left: 10%;
+        bottom: 45%;
     }
     
 }

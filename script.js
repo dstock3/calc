@@ -186,6 +186,10 @@ const calc = (() => {
         }
         if (operator === "/") {
             let quotient = div(x, y)
+            if (y === 0) {
+                let quotient = "Impossible!"
+                return quotient
+            }
             return quotient
         }
         if (operator === "^") {
