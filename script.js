@@ -128,13 +128,15 @@ const display = () => {
     }
 
     const plusMinusSwitch = () => {
-        if (array[0] === "-") {
-            array.shift(array[0])
+        let firstValue = array[0];
+
+        if (firstValue !== "-") {
+            array.unshift("-");
             let num = array.join('');
             pushToDisplay(num);
             return num
-        } else {
-            array.unshift("-");
+        } else if (firstValue === "-") {
+            array.shift(array[0])
             let num = array.join('');
             pushToDisplay(num);
             return num
@@ -225,8 +227,8 @@ const calcLogic = (() => {
             });
         };
         let equalsButton = document.getElementById("=");
-        let numTwo = parseFloat(elements.calcDisplay.textContent);
         equalsButton.addEventListener("click", function calculation() {
+            let numTwo = parseFloat(elements.calcDisplay.textContent);
             let result = calc.operation(operator, numOne, numTwo);
             displayObj.pushToDisplay(result);
             displayObj.clearArray();
@@ -241,7 +243,7 @@ const calcLogic = (() => {
         for (i = 0; i < newSet.elementArray.length; i++) {
             let newButton = newSet.elementArray[i];
             let num = newButton.textContent;
-            backSpaceEvent(displayObj);
+
             newButton.addEventListener("click", function operation() {
                 displayObj.addToArray(num);
                 equals(operator, numOne, displayObj);
@@ -265,9 +267,7 @@ const calcLogic = (() => {
 
     function operate() {
         let newdisplay = display()
-        clearEvent(newdisplay);
-        backSpaceEvent(newdisplay)
-        plusMinus(newdisplay)
+        applyAllEvents(newdisplay);
         let numSet = numButtons();
         let calcSet = calcButtons();
         addListener(numSet, newdisplay);
@@ -297,9 +297,15 @@ const calcLogic = (() => {
         backSpace.addEventListener("click", displayObj.backSpace);
     }
 
-    const plusMinus = (displayObj) => {
+    const negativeEvent = (displayObj) => {
         let switchButton = document.getElementById("negative");
         switchButton.addEventListener("click", displayObj.plusMinusSwitch)
+    }
+
+    const applyAllEvents = (displayObj) => {
+        clearEvent(displayObj);
+        backSpaceEvent(displayObj);
+        negativeEvent(displayObj);
     }
 
     operate()
