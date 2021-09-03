@@ -114,8 +114,29 @@ const display = () => {
         } 
     }
 
-    return { array, clearArray, addToArray, pushToDisplay, clear }
+    const backSpace = () => {
+        let lastNumIndex = array.length - 1;
+        array.pop(array[lastNumIndex]);
+        let num = array.join('');
+        pushToDisplay(num);
+        return num
+    }
+
+    return { array, clearArray, addToArray, pushToDisplay, clear, backSpace }
 };
+
+const clearButton = (() => {
+    let button = elementBuilder('button', 'button', elements.buttonDiv);
+    button.id = "clear";
+    button.textContent = "Clear";
+})();
+
+const backSpace = (() => {
+    let button = elementBuilder('button', 'button', elements.buttonDiv);
+    button.id = "backspace";
+    button.textContent = "Backspace";
+    
+})();
 
 const calc = (() => {
     const add = (x, y) => x + y;
@@ -148,12 +169,6 @@ const calc = (() => {
     }
 
     return { add, mult, sub, div, exp, operation}
-})();
-
-const clearButton = (() => {
-    let button = elementBuilder('button', 'button', elements.buttonDiv);
-    button.id = "clear";
-    button.textContent = "Clear";
 })();
 
 const calcLogic = (() => {   
@@ -224,6 +239,8 @@ const calcLogic = (() => {
 
     function operate() {
         let newdisplay = display()
+        let backSpace = document.getElementById("backspace")
+        backSpace.addEventListener("click", newdisplay.backSpace);
         clearEvent(newdisplay);
         let numSet = numButtons();
         let calcSet = calcButtons();
