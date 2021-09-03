@@ -116,10 +116,15 @@ const display = () => {
 
     const backSpace = () => {
         let lastNumIndex = array.length - 1;
-        array.pop(array[lastNumIndex]);
-        let num = array.join('');
-        pushToDisplay(num);
-        return num
+        let lastNum = array[lastNumIndex];
+        if (lastNum > 9) {
+            clearArray()
+        } else {
+            array.pop(lastNum);
+            let num = array.join('');
+            pushToDisplay(num);
+            return num
+        }
     }
 
     return { array, clearArray, addToArray, pushToDisplay, clear, backSpace }
