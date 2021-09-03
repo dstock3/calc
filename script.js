@@ -211,7 +211,6 @@ const calcLogic = (() => {
     function operate() {
         let newdisplay = display()
         clearEvent(newdisplay);
-        console.log(newdisplay.array)
         let numSet = numButtons();
         let calcSet = calcButtons();
         addListener(numSet, newdisplay);
@@ -228,7 +227,6 @@ const calcLogic = (() => {
 
     const clearEvent = (displayObj) => {
         let button = document.getElementById("clear")
-        console.log(button)
         function clearAll() {
             displayObj.clearArray();
             displayObj.clear()
