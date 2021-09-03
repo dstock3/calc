@@ -171,17 +171,28 @@ const calc = (() => {
     const div = (x, y) => x / y;
     const exp = (x, y) => x ** y;
 
+    const lengthCheck = (num) => {
+        let string = num.toString()
+        if (string.length > 15) {
+            num = Math.round(num);
+            return num;
+        } else { return num }
+    }
+
     const operation = (operator, x, y) => {
         if (operator === '+') {
             let sum = add(x, y)
+            sum = lengthCheck(sum)
             return sum
         }
         if (operator === "x") {
             let product = mult(x, y)
+            product = lengthCheck(product)
             return product
         }
         if (operator === "-") {
             let difference = sub(x, y)
+            difference = lengthCheck(difference)
             return difference
         }
         if (operator === "/") {
@@ -190,10 +201,12 @@ const calc = (() => {
                 let quotient = "Impossible!"
                 return quotient
             }
+            quotient = lengthCheck(quotient)
             return quotient
         }
         if (operator === "^") {
             let power = exp(x, y)
+            power = lengthCheck(power)
             return power
         }
     }
