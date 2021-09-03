@@ -38,11 +38,13 @@ const numButtons = () => {
         elementArray.push(newButton);
     };
 
-    const decimal = elementBuilder("button", "button", elements.numButtonDiv);
-    decimal.classList.add(`number`);
-    decimal.textContent = `.`;
-    decimal.id = "decimal"
-    elementArray.push(decimal);
+    const decButton = (() => {
+        const decimal = elementBuilder("button", "button", elements.numButtonDiv);
+        decimal.classList.add(`number`);
+        decimal.textContent = `.`;
+        decimal.id = "decimal"
+        elementArray.push(decimal);
+    })();
 
     function numAssign(numButton, i) {
         if (i === 0) {numButton.id = "zero"};
@@ -93,10 +95,23 @@ const display = () => {
     }
 
     const addToArray = (displayContents) => {
+        let decimalCount = 0;
         array.push(displayContents);
-        let num = array.join('');
-        pushToDisplay(num);
-        return num
+        for (i = 0; i < array.length; i++) {
+            if (array[i] === ".") {
+                decimalCount += 1;
+            }
+        }
+        if (decimalCount < 2) {
+            let num = array.join('');
+            pushToDisplay(num);
+            return num
+        } else {
+            array.pop(displayContents)
+            let num = array.join('');
+            pushToDisplay(num);
+            return num
+        } 
     }
 
     return { array, clearArray, addToArray, pushToDisplay, clear }
@@ -141,8 +156,7 @@ const clearButton = (() => {
     button.textContent = "Clear";
 })();
 
-const calcLogic = (() => {
-    
+const calcLogic = (() => {   
     function buttonListener(buttonElement, displayContents, displayObj) {
         buttonElement.addEventListener("click", function numEvent() {
             displayObj.addToArray(displayContents);
@@ -152,10 +166,10 @@ const calcLogic = (() => {
     const addListener = (newSet, displayObj) => {
         for (i = 0; i < newSet.elementArray.length; i++) {
             let newButton = newSet.elementArray[i];
-            let num = newButton.textContent
+            let num = newButton.textContent;
             buttonListener(newButton, num, displayObj)
-            };
-    }
+        };
+    }; 
 
     function equals(operator, numOne, displayObj) {
         let newCalcSet = calcButtons()
