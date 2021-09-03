@@ -147,6 +147,14 @@ body {
     order: 11;
 }
 
+#backspace {
+    font-size: 1em;
+    padding: 4%;
+    position: relative;
+    left: 60%;
+    bottom: 36%;
+}
+
 .calc-buttons {
     position: relative;
     left: 15%;
@@ -200,6 +208,10 @@ body {
 
     .calc-buttons {
         left: 0;
-
     }
+
+    #backspace {
+        left: 30%;
+    }
+    
 }
